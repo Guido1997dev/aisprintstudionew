@@ -1,94 +1,455 @@
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { ThemeToggle } from '@/components/theme-toggle';
+import { Logo, LogoText } from '@/components/logo';
 import Link from 'next/link';
+import { 
+  Zap, 
+  BarChart3, 
+  Clock, 
+  Rocket,
+  Workflow, 
+  Code2,
+  CheckCircle2,
+  ArrowRight,
+  Sparkles,
+  Target,
+  Users
+} from 'lucide-react';
 
 export default function Home() {
+  const features = [
+    {
+      icon: Rocket,
+      title: 'Happy Sprint Machine',
+      description: 'Onze bewezen methodologie om AI-gedreven innovaties snel en efficiënt te realiseren in sprints.',
+    },
+    {
+      icon: Zap,
+      title: 'n8n Automation',
+      description: 'Krachtige workflow automation met n8n. Beheer en monitor al je automations vanuit één dashboard.',
+    },
+    {
+      icon: BarChart3,
+      title: 'Real-time Analytics',
+      description: 'Volg performance metrics en success rates met live statistieken en interactieve charts.',
+    },
+    {
+      icon: Target,
+      title: 'Sprint-gebaseerd',
+      description: 'Werk in korte, gefocuste sprints om snel resultaat te boeken en continue te verbeteren.',
+    },
+    {
+      icon: Workflow,
+      title: 'Webhook Triggers',
+      description: 'Trigger workflows on demand met support voor zowel GET als POST webhook methods.',
+    },
+    {
+      icon: Code2,
+      title: 'Modern Tech Stack',
+      description: 'Gebouwd met Next.js 15, TypeScript, Shadcn UI en Tailwind CSS voor optimale performance.',
+    },
+  ];
+
+  const pricing = [
+    {
+      name: 'Starter Sprint',
+      price: '€2.500',
+      description: 'Voor eerste verkenning',
+      features: [
+        '1 Week Sprint',
+        'Happy Sprint Machine methodologie',
+        'Basis Dashboard Setup',
+        '5 Workflows',
+        'Email Support',
+      ],
+      cta: 'Start Sprint',
+      highlighted: false,
+    },
+    {
+      name: 'Growth Sprint',
+      price: '€7.500',
+      description: 'Voor schaalbare groei',
+      features: [
+        '4 Weken Sprint',
+        'Volledige Happy Sprint Machine',
+        'Advanced Analytics Dashboard',
+        'Unlimited Workflows',
+        'Priority Support',
+        'Team Training',
+        'Custom Integrations',
+      ],
+      cta: 'Start Sprint',
+      highlighted: true,
+    },
+    {
+      name: 'Enterprise Sprint',
+      price: 'Op maat',
+      description: 'Voor grote organisaties',
+      features: [
+        'Doorlopende Sprints',
+        'Dedicated Sprint Team',
+        'Enterprise Dashboard',
+        'Unlimited Everything',
+        '24/7 Support',
+        'On-site Training',
+        'Custom Development',
+      ],
+      cta: 'Contact Ons',
+      highlighted: false,
+    },
+  ];
+
+  const faqs = [
+    {
+      question: 'Wat is de Happy Sprint Machine methodologie?',
+      answer: 'De Happy Sprint Machine is onze unieke aanpak voor AI-implementatie. We werken in korte, gefocuste sprints waarbij we snel prototypes bouwen, testen en itereren. Dit zorgt voor snelle resultaten, continue feedback en tevreden teams - vandaar "Happy"!',
+    },
+    {
+      question: 'Hoe lang duurt een typische sprint?',
+      answer: 'Een standaard sprint duurt 1-4 weken, afhankelijk van de complexiteit en scope. We starten altijd met een intake om de juiste sprint-lengte te bepalen en concrete doelen te stellen.',
+    },
+    {
+      question: 'Wat is n8n en hoe past het in jullie aanpak?',
+      answer: 'n8n is een krachtige open-source workflow automation tool. Wij gebruiken het als basis voor het dashboard, waarmee je al je automations kunt monitoren, beheren en triggeren. Het past perfect bij onze sprint-methodologie: snel bouwen, direct resultaat.',
+    },
+    {
+      question: 'Kunnen jullie integreren met onze bestaande systemen?',
+      answer: 'Absoluut! Een groot voordeel van n8n en onze aanpak is de flexibiliteit. We kunnen integreren met vrijwel elk systeem via APIs, webhooks of databases. In de sprint bekijken we samen wat nodig is.',
+    },
+    {
+      question: 'Wat gebeurt er na een sprint?',
+      answer: 'Na elke sprint evalueren we samen de resultaten. Je kunt kiezen om door te gaan met een nieuwe sprint voor verdere ontwikkeling, of het systeem zelfstandig te beheren. We bieden ook onderhoud en support aan.',
+    },
+    {
+      question: 'Werken jullie ook op locatie?',
+      answer: 'Ja, voor Enterprise Sprints komen we graag on-site voor kickoff meetings en training. Voor andere sprints werken we remote, met regelmatige check-ins via video calls.',
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
-      <div className="container mx-auto px-4 py-20">
-        <div className="text-center mb-16">
-          <h1 className="text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-            Automation Studio
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container mx-auto flex h-16 items-center justify-between px-4">
+          <Link href="/" className="flex items-center space-x-3">
+            <Logo className="h-8" />
+            <LogoText />
+          </Link>
+          
+          <nav className="hidden md:flex items-center space-x-6">
+            <Link href="/dashboard" className="text-sm font-medium transition-colors hover:text-primary">
+              Dashboard
+            </Link>
+            <Link href="/about" className="text-sm font-medium transition-colors hover:text-primary">
+              Over Ons
+            </Link>
+            <Link href="/portfolio" className="text-sm font-medium transition-colors hover:text-primary">
+              Portfolio
+            </Link>
+            <a href="#pricing" className="text-sm font-medium transition-colors hover:text-primary">
+              Pricing
+            </a>
+          </nav>
+
+          <div className="flex items-center gap-4">
+            <ThemeToggle />
+            <Link href="/dashboard">
+              <Button variant="ghost" size="sm">Inloggen</Button>
+            </Link>
+            <Link href="/dashboard">
+              <Button size="sm">Start Sprint</Button>
+            </Link>
+          </div>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <section className="container mx-auto px-4 py-20 md:py-32">
+        <div className="mx-auto max-w-4xl text-center">
+          <Badge variant="secondary" className="mb-4 gap-1">
+            <Sparkles className="h-3 w-3" />
+            Happy Sprint Machine
+          </Badge>
+          
+          <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+            Bouw en schaal je business met{' '}
+            <span className="bg-gradient-to-r from-primary via-orange-500 to-primary bg-clip-text text-transparent">
+              AI-automation
+            </span>{' '}
+            in snelle sprints.
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Professional automation solutions powered by n8n. Monitor, manage, and trigger your workflows with ease.
+          
+          <p className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground">
+            Met de Happy Sprint Machine methodologie realiseren we AI-gedreven automations in korte, effectieve sprints. 
+            Monitor, beheer en optimaliseer al je workflows vanuit één krachtig dashboard.
           </p>
+          
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link href="/dashboard">
+              <Button size="lg" className="w-full sm:w-auto font-semibold">
+                <Rocket className="mr-2 h-4 w-4" />
+                Start Je Sprint
+              </Button>
+            </Link>
+            <Link href="/about">
+              <Button size="lg" variant="outline" className="w-full sm:w-auto group">
+                Leer Meer Over Ons
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
+          </div>
         </div>
+      </section>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <Link href="/portfolio" className="group">
-            <Card className="h-full hover:shadow-xl transition-all hover:-translate-y-1">
-              <CardHeader>
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center mb-4">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                  </svg>
-                </div>
-                <CardTitle className="text-2xl group-hover:text-primary transition-colors">
-                  Portfolio
-                </CardTitle>
-                <CardDescription className="text-base">
-                  Explore our automation projects, services, and success stories. See how we&apos;re transforming businesses through intelligent automation.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                  View Portfolio
-                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </Button>
-              </CardContent>
-            </Card>
-          </Link>
-
-          <Link href="/dashboard" className="group">
-            <Card className="h-full hover:shadow-xl transition-all hover:-translate-y-1">
-              <CardHeader>
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-4">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                  </svg>
-                </div>
-                <CardTitle className="text-2xl group-hover:text-primary transition-colors">
-                  Dashboard
-                </CardTitle>
-                <CardDescription className="text-base">
-                  Monitor your automation workflows in real-time. View performance metrics, manage workflows, and trigger automations on demand.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button className="w-full group-hover:shadow-lg transition-shadow">
-                  Open Dashboard
-                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </Button>
-              </CardContent>
-            </Card>
-          </Link>
-        </div>
-
-        <div className="mt-16 text-center">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
-            <div className="space-y-2">
-              <div className="text-3xl font-bold text-primary">50+</div>
-              <div className="text-sm text-muted-foreground">Active Workflows</div>
+      {/* Happy Sprint Machine Section */}
+      <section className="border-y bg-muted/50 py-20">
+        <div className="container mx-auto px-4">
+          <div className="mx-auto max-w-4xl">
+            <div className="text-center mb-12">
+              <Badge className="mb-4">Onze Methodologie</Badge>
+              <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
+                De Happy Sprint Machine
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Snelle resultaten, tevreden teams, en continue verbetering
+              </p>
             </div>
-            <div className="space-y-2">
-              <div className="text-3xl font-bold text-primary">99.9%</div>
-              <div className="text-sm text-muted-foreground">Uptime</div>
-            </div>
-            <div className="space-y-2">
-              <div className="text-3xl font-bold text-primary">10k+</div>
-              <div className="text-sm text-muted-foreground">Monthly Executions</div>
+
+            <div className="grid gap-6 md:grid-cols-3">
+              <Card className="text-center">
+                <CardHeader>
+                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                    <Target className="h-8 w-8 text-primary" />
+                  </div>
+                  <CardTitle>Sprint Planning</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">
+                    We starten met een duidelijk doel en concrete deliverables voor de sprint.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="text-center">
+                <CardHeader>
+                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                    <Zap className="h-8 w-8 text-primary" />
+                  </div>
+                  <CardTitle>Snel Bouwen</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">
+                    In korte iteraties bouwen we prototypes en working solutions.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="text-center">
+                <CardHeader>
+                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                    <Sparkles className="h-8 w-8 text-primary" />
+                  </div>
+                  <CardTitle>Happy Results</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">
+                    Direct waarde, tevreden stakeholders, en concrete business impact.
+                  </p>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <footer className="border-t mt-20 py-8 text-center text-sm text-muted-foreground">
-        <p>© 2025 Automation Studio. Powered by n8n.</p>
+      {/* Features Section */}
+      <section className="container mx-auto px-4 py-20 md:py-32">
+        <div className="mx-auto max-w-4xl text-center mb-16">
+          <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
+            Alles wat je nodig hebt voor succesvolle AI-automation
+          </h2>
+          <p className="text-lg text-muted-foreground">
+            Van concept tot productie in één geïntegreerd platform
+          </p>
+        </div>
+
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {features.map((feature, index) => {
+            const Icon = feature.icon;
+            return (
+              <Card key={index} className="border-2 transition-all hover:border-primary/50 hover:shadow-lg">
+                <CardHeader>
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                    <Icon className="h-6 w-6 text-primary" />
+                  </div>
+                  <CardTitle className="text-xl">{feature.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">{feature.description}</p>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section id="pricing" className="container mx-auto px-4 py-20 md:py-32">
+        <div className="mx-auto max-w-4xl text-center mb-16">
+          <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
+            Start je AI Sprint
+          </h2>
+          <p className="text-lg text-muted-foreground">
+            Kies de sprint die bij jouw ambities past
+          </p>
+        </div>
+
+        <div className="grid gap-8 md:grid-cols-3">
+          {pricing.map((plan, index) => (
+            <Card 
+              key={index} 
+              className={`flex flex-col ${
+                plan.highlighted 
+                  ? 'border-primary shadow-lg shadow-primary/20 scale-105' 
+                  : ''
+              }`}
+            >
+              <CardHeader>
+                <CardTitle className="text-2xl">{plan.name}</CardTitle>
+                <CardDescription>{plan.description}</CardDescription>
+                <div className="mt-4">
+                  <span className="text-4xl font-bold">{plan.price}</span>
+                  {plan.price !== 'Op maat' && <span className="text-muted-foreground"> / sprint</span>}
+                </div>
+              </CardHeader>
+              <CardContent className="flex-1">
+                <ul className="space-y-3">
+                  {plan.features.map((feature, featureIndex) => (
+                    <li key={featureIndex} className="flex items-start gap-2">
+                      <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span className="text-sm">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+              <CardFooter>
+                <Button 
+                  className="w-full" 
+                  variant={plan.highlighted ? 'default' : 'outline'}
+                  size="lg"
+                >
+                  {plan.cta}
+                </Button>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="container mx-auto px-4 py-20 md:py-32">
+        <div className="mx-auto max-w-3xl">
+          <div className="text-center mb-16">
+            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
+              Veelgestelde Vragen
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Alles wat je wilt weten over AI Sprint Studio
+            </p>
+          </div>
+
+          <Accordion type="single" collapsible className="w-full">
+            {faqs.map((faq, index) => (
+              <AccordionItem key={index} value={`item-${index}`}>
+                <AccordionTrigger className="text-left">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="border-y bg-muted/50 py-20">
+        <div className="container mx-auto px-4">
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
+              Klaar voor jouw AI Sprint?
+            </h2>
+            <p className="mb-8 text-lg text-muted-foreground">
+              Start vandaag nog met de Happy Sprint Machine en zie resultaten binnen weken, niet maanden.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/dashboard">
+                <Button size="lg" className="font-semibold w-full sm:w-auto">
+                  <Rocket className="mr-2 h-4 w-4" />
+                  Start Je Sprint Nu
+                </Button>
+              </Link>
+              <Link href="/about">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto">
+                  <Users className="mr-2 h-4 w-4" />
+                  Ontmoet Het Team
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+            <div>
+              <div className="flex items-center space-x-3 mb-4">
+                <Logo className="h-8" />
+                <LogoText />
+              </div>
+              <p className="text-sm text-muted-foreground">
+                AI-automation in snelle sprints met de Happy Sprint Machine methodologie.
+              </p>
+            </div>
+            
+            <div>
+              <h3 className="mb-4 text-sm font-semibold">Product</h3>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/dashboard" className="text-muted-foreground hover:text-foreground">Dashboard</Link></li>
+                <li><Link href="/about" className="text-muted-foreground hover:text-foreground">Over Ons</Link></li>
+                <li><Link href="/portfolio" className="text-muted-foreground hover:text-foreground">Portfolio</Link></li>
+                <li><Link href="#pricing" className="text-muted-foreground hover:text-foreground">Pricing</Link></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="mb-4 text-sm font-semibold">Resources</h3>
+              <ul className="space-y-2 text-sm">
+                <li><a href="https://docs.n8n.io" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">n8n Documentatie</a></li>
+                <li><Link href="/dashboard" className="text-muted-foreground hover:text-foreground">Happy Sprint Machine</Link></li>
+                <li><Link href="/about" className="text-muted-foreground hover:text-foreground">Ons Team</Link></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="mb-4 text-sm font-semibold">Contact</h3>
+              <ul className="space-y-2 text-sm">
+                <li><a href="mailto:info@aisprintstudio.nl" className="text-muted-foreground hover:text-foreground">info@aisprintstudio.nl</a></li>
+                <li className="text-muted-foreground">Nederland</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="mt-12 border-t pt-8 text-center text-sm text-muted-foreground">
+            © 2025 AI Sprint Studio. Gebouwd met de Happy Sprint Machine.
+          </div>
+        </div>
       </footer>
     </div>
   );

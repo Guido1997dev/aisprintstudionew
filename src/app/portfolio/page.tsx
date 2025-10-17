@@ -62,9 +62,11 @@ export default function PortfolioPage() {
       {/* Header */}
       <header className="border-b bg-white/50 backdrop-blur-sm dark:bg-slate-950/50">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Automation Studio
-          </h1>
+          <div className="flex items-baseline gap-1">
+            <span className="text-xl font-bold">AI</span>
+            <span className="text-xl font-bold text-primary">SPRINT</span>
+            <span className="text-lg font-normal italic">studio</span>
+          </div>
           <nav className="flex gap-4">
             <Link href="/portfolio">
               <Button variant="ghost">Portfolio</Button>
@@ -79,13 +81,13 @@ export default function PortfolioPage() {
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-20 text-center">
         <Badge className="mb-4" variant="secondary">
-          Professional Automation Solutions
+          Happy Sprint Machine
         </Badge>
-        <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-          Transforming Business Through Automation
+        <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-primary via-orange-500 to-primary bg-clip-text text-transparent">
+          AI-Automation in Snelle Sprints
         </h2>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-          We build intelligent automation solutions that streamline operations, reduce costs, and empower teams to focus on what matters most.
+          Met de Happy Sprint Machine methodologie realiseren we AI-automations die echt waarde leveren. Snel, effectief en met tevreden teams.
         </p>
         <div className="flex gap-4 justify-center">
           <Link href="/dashboard">
@@ -206,7 +208,7 @@ export default function PortfolioPage() {
       {/* Footer */}
       <footer className="border-t bg-white/50 backdrop-blur-sm dark:bg-slate-950/50 mt-20">
         <div className="container mx-auto px-4 py-8 text-center text-muted-foreground">
-          <p>© 2025 Automation Studio. Powered by n8n.</p>
+          <p>© 2025 AI Sprint Studio. Gebouwd met de Happy Sprint Machine.</p>
         </div>
       </footer>
     </div>

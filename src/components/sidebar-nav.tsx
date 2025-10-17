@@ -39,10 +39,11 @@ export function SidebarNav() {
     <div className="flex h-full w-64 flex-col border-r bg-background">
       {/* Company Logo/Name */}
       <div className="flex h-16 items-center gap-2 border-b px-6">
-        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary">
-          <span className="text-sm font-bold text-primary-foreground">A</span>
+        <div className="flex items-baseline gap-1">
+          <span className="text-base font-bold text-foreground">AI</span>
+          <span className="text-base font-bold text-primary">SPRINT</span>
+          <span className="text-sm font-normal text-foreground italic">studio</span>
         </div>
-        <span className="text-lg font-semibold">Acme Inc.</span>
       </div>
 
       {/* Navigation */}
