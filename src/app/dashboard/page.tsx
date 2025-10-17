@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { ProtectedRoute } from '@/components/protected-route';
 import { DashboardLayout } from '@/components/dashboard-layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -163,8 +164,9 @@ export default function DashboardPage() {
   );
 
   return (
-    <DashboardLayout title="Automation Dashboard">
-      <div className="space-y-6">
+    <ProtectedRoute>
+      <DashboardLayout title="Automation Dashboard">
+        <div className="space-y-6">
         {/* Stats Grid */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <StatCard
@@ -614,7 +616,8 @@ export default function DashboardPage() {
             </Card>
           </TabsContent>
         </Tabs>
-      </div>
-    </DashboardLayout>
+        </div>
+      </DashboardLayout>
+    </ProtectedRoute>
   );
 }

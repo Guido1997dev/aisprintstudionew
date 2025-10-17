@@ -139,14 +139,8 @@ export default function Home() {
           </Link>
           
           <nav className="hidden md:flex items-center space-x-6">
-            <Link href="/dashboard" className="text-sm font-medium transition-colors hover:text-primary">
-              Dashboard
-            </Link>
             <Link href="/about" className="text-sm font-medium transition-colors hover:text-primary">
               Over Ons
-            </Link>
-            <Link href="/portfolio" className="text-sm font-medium transition-colors hover:text-primary">
-              Portfolio
             </Link>
             <a href="#pricing" className="text-sm font-medium transition-colors hover:text-primary">
               Pricing
@@ -155,10 +149,10 @@ export default function Home() {
 
           <div className="flex items-center gap-4">
             <ThemeToggle />
-            <Link href="/dashboard">
+            <Link href="/login">
               <Button variant="ghost" size="sm">Inloggen</Button>
             </Link>
-            <Link href="/dashboard">
+            <Link href="/login">
               <Button size="sm">Start Sprint</Button>
             </Link>
           </div>
@@ -187,7 +181,7 @@ export default function Home() {
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/dashboard">
+            <Link href="/login">
               <Button size="lg" className="w-full sm:w-auto font-semibold">
                 <Rocket className="mr-2 h-4 w-4" />
                 Start Je Sprint
@@ -386,7 +380,7 @@ export default function Home() {
               Start vandaag nog met de Happy Sprint Machine en zie resultaten binnen weken, niet maanden.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/dashboard">
+              <Link href="/login">
                 <Button size="lg" className="font-semibold w-full sm:w-auto">
                   <Rocket className="mr-2 h-4 w-4" />
                   Start Je Sprint Nu
@@ -420,9 +414,8 @@ export default function Home() {
             <div>
               <h3 className="mb-4 text-sm font-semibold">Product</h3>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/dashboard" className="text-muted-foreground hover:text-foreground">Dashboard</Link></li>
+                <li><Link href="/login" className="text-muted-foreground hover:text-foreground">Dashboard</Link></li>
                 <li><Link href="/about" className="text-muted-foreground hover:text-foreground">Over Ons</Link></li>
-                <li><Link href="/portfolio" className="text-muted-foreground hover:text-foreground">Portfolio</Link></li>
                 <li><Link href="#pricing" className="text-muted-foreground hover:text-foreground">Pricing</Link></li>
               </ul>
             </div>
@@ -431,7 +424,7 @@ export default function Home() {
               <h3 className="mb-4 text-sm font-semibold">Resources</h3>
               <ul className="space-y-2 text-sm">
                 <li><a href="https://docs.n8n.io" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">n8n Documentatie</a></li>
-                <li><Link href="/dashboard" className="text-muted-foreground hover:text-foreground">Happy Sprint Machine</Link></li>
+                <li><Link href="/login" className="text-muted-foreground hover:text-foreground">Happy Sprint Machine</Link></li>
                 <li><Link href="/about" className="text-muted-foreground hover:text-foreground">Ons Team</Link></li>
               </ul>
             </div>
