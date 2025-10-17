@@ -30,7 +30,6 @@ const chartData = [
 export default function DashboardPage() {
   const [workflows, setWorkflows] = useState<WorkflowWithStats[]>([]);
   const [timePeriod, setTimePeriod] = useState('3months');
-  const [selectedWorkflow, setSelectedWorkflow] = useState<WorkflowWithStats | null>(null);
   const [webhookUrl, setWebhookUrl] = useState('');
   const [webhookMethod, setWebhookMethod] = useState<'GET' | 'POST'>('GET');
   const [webhookData, setWebhookData] = useState('{}');
@@ -95,7 +94,6 @@ export default function DashboardPage() {
   };
 
   const handleSelectWorkflow = (workflow: WorkflowWithStats) => {
-    setSelectedWorkflow(workflow);
     if (workflow.webhookUrl) {
       setWebhookUrl(workflow.webhookUrl);
     }
@@ -128,7 +126,7 @@ export default function DashboardPage() {
     trendValue: string;
     description: string;
     trendUp: boolean;
-    icon: any;
+    icon: React.ComponentType<{ className?: string }>;
   }) => (
     <Card className="bg-card">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">

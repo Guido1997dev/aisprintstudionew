@@ -4,11 +4,10 @@ import { Badge } from '@/components/ui/badge';
 import { Logo, LogoText } from '@/components/logo';
 import { ThemeToggle } from '@/components/theme-toggle';
 import Link from 'next/link';
-import Image from 'next/image';
+// import Image from 'next/image';
 import {
   Rocket,
   Target,
-  Zap,
   Users,
   Heart,
   Sparkles,
@@ -225,7 +224,7 @@ export default function AboutPage() {
                 <div className="flex items-start gap-4">
                   <Heart className="h-12 w-12 text-primary flex-shrink-0" />
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Waarom "Happy"?</h3>
+                    <h3 className="text-xl font-semibold mb-2">Waarom &quot;Happy&quot;?</h3>
                     <p className="text-muted-foreground">
                       Omdat we geloven dat tevreden teams betere software maken. Door korte sprints, 
                       heldere communicatie en snelle wins houden we iedereen gemotiveerd en enthousiast. 

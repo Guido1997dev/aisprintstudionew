@@ -113,10 +113,12 @@ export async function getWorkflowsWithStats(): Promise<WorkflowWithStats[]> {
       // Extract webhook URL from workflow nodes if it has a webhook trigger
       let webhookUrl = '';
       if (workflow.nodes && Array.isArray(workflow.nodes)) {
-        const webhookNode = workflow.nodes.find((node: any) => 
-          node.type === 'n8n-nodes-base.webhook' || 
-          node.type === 'n8n-nodes-base.webhookTrigger'
-        );
+        const webhookNode = workflow.nodes.find((node: unknown) => {
+          const n = node as { type?: string; parameters?: { path?: string } };
+          return n.type === 'n8n-nodes-base.webhook' || 
+                 n.type === 'n8n-nodes-base.webhookTrigger';
+        }) as { type?: string; parameters?: { path?: string } } | undefined;
+        
         if (webhookNode && webhookNode.parameters?.path) {
           webhookUrl = `${N8N_API_URL}/webhook/${webhookNode.parameters.path}`;
         }
