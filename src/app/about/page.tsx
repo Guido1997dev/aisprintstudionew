@@ -93,7 +93,7 @@ export default function AboutPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-20 md:py-32">
+      <section className="container mx-auto px-4" style={{ margin: '0 auto -5px', padding: '128px 16px 0' }}>
         <div className="mx-auto max-w-4xl text-center">
           <Badge variant="secondary" className="mb-4 gap-1">
             <Users className="h-3 w-3" />
@@ -115,7 +115,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team Section */}
-      <section className="container mx-auto px-4 py-20">
+      <section className="container mx-auto px-4" style={{ margin: '-3px auto 0', padding: '57px 16px 80px' }}>
         <div className="mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
@@ -128,8 +128,8 @@ export default function AboutPage() {
 
           <div className="grid gap-12 md:grid-cols-2 max-w-4xl mx-auto">
             {teamMembers.map((member, index) => (
-              <Card key={index} className="overflow-hidden">
-                <div className="aspect-[4/5] relative bg-muted">
+              <Card key={index} className="overflow-hidden transition-all hover:shadow-xl hover:scale-105 animate-fade-in-up" style={{ animationDelay: `${index * 150}ms` }}>
+                <div className="aspect-[4/5] relative bg-muted hover:brightness-110 transition-all duration-300">
                   {/* Image will be added by user */}
                   <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5">
                     <Users className="h-24 w-24 text-primary/20" />
@@ -188,8 +188,8 @@ export default function AboutPage() {
             </div>
 
             <div className="grid gap-8 md:grid-cols-3 mb-12">
-              <div className="text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+              <div className="text-center animate-fade-in-up" style={{ animationDelay: '0ms' }}>
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 hover:scale-110 transition-transform duration-300 animate-float">
                   <span className="text-2xl font-bold text-primary">1</span>
                 </div>
                 <h3 className="text-lg font-semibold mb-2">Sprint Planning</h3>
@@ -198,8 +198,8 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              <div className="text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+              <div className="text-center animate-fade-in-up" style={{ animationDelay: '150ms' }}>
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 hover:scale-110 transition-transform duration-300 animate-float" style={{ animationDelay: '200ms' }}>
                   <span className="text-2xl font-bold text-primary">2</span>
                 </div>
                 <h3 className="text-lg font-semibold mb-2">Build & Iterate</h3>
@@ -208,8 +208,8 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              <div className="text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+              <div className="text-center animate-fade-in-up" style={{ animationDelay: '300ms' }}>
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 hover:scale-110 transition-transform duration-300 animate-float" style={{ animationDelay: '400ms' }}>
                   <span className="text-2xl font-bold text-primary">3</span>
                 </div>
                 <h3 className="text-lg font-semibold mb-2">Happy Delivery</h3>
@@ -219,7 +219,7 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <Card className="bg-primary/5 border-primary/20">
+            <Card className="bg-primary/5 border-primary/20 animate-fade-in-up transition-all hover:shadow-lg hover:scale-105" style={{ animationDelay: '450ms' }}>
               <CardContent className="pt-6">
                 <div className="flex items-start gap-4">
                   <Heart className="h-12 w-12 text-primary flex-shrink-0" />
@@ -254,9 +254,9 @@ export default function AboutPage() {
             {values.map((value, index) => {
               const Icon = value.icon;
               return (
-                <Card key={index} className="text-center">
+                <Card key={index} className="text-center transition-all hover:shadow-lg hover:scale-105 animate-fade-in-up" style={{ animationDelay: `${index * 100}ms` }}>
                   <CardHeader>
-                    <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                    <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 hover:scale-110 transition-transform animate-float" style={{ animationDelay: `${index * 200}ms` }}>
                       <Icon className="h-6 w-6 text-primary" />
                     </div>
                     <CardTitle className="text-xl">{value.title}</CardTitle>
@@ -273,7 +273,7 @@ export default function AboutPage() {
 
       {/* CTA Section */}
       <section className="container mx-auto px-4 py-20">
-        <Card className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 border-primary/20">
+        <Card className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 border-primary/20 animate-fade-in-up transition-all hover:shadow-2xl hover:scale-105" style={{ animationDelay: '500ms' }}>
           <CardContent className="pt-12 pb-12">
             <div className="mx-auto max-w-3xl text-center">
               <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">

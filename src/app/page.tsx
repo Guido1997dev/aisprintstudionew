@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -8,6 +9,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Logo, LogoText } from '@/components/logo';
 import { PromptBox } from '@/components/prompt-box';
+import Orb from '@/components/orb';
 import Link from 'next/link';
 import {
   Zap,
@@ -34,6 +36,7 @@ interface ChatMessage {
 export default function Home() {
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
 
   const handleMessage = (message: { role: 'user' | 'assistant'; message: string; timestamp: string; isError?: boolean }) => {
     const newMessage: ChatMessage = {
@@ -195,69 +198,76 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-20 md:py-32">
-        <div className="mx-auto max-w-4xl text-center">
-          <Badge variant="secondary" className="mb-4 gap-1">
-            <Sparkles className="h-3 w-3" />
-            Happy Sprint Machine
-          </Badge>
-          
-          <h1 className="mb-12 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-            Bouw en schaal je business met{' '}
-            <span className="text-primary">
-              AI-automation
-            </span>{' '}
-            in snelle sprints.
-          </h1>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-20 md:py-32">
+        <div className="absolute inset-0">
+          {theme === 'dark' && (
+            <Orb hue={0} hoverIntensity={0.3} rotateOnHover={true} forceHoverState={false} />
+          )}
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="mx-auto max-w-4xl text-center">
+            <Badge variant="secondary" className="mb-4 gap-1">
+              <Sparkles className="h-3 w-3" />
+              Happy Sprint Machine
+            </Badge>
 
-          <div className="mx-auto max-w-2xl w-full">
-            {chatMessages.length > 0 && (
-              <div ref={chatContainerRef} className="rounded-lg p-4 max-h-80 overflow-y-auto space-y-3 mb-3">
-                {chatMessages.map((msg) => (
-                  <div
-                    key={msg.id}
-                    className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}
-                  >
+            <h1 className="mb-12 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl animate-fade-in-down">
+              Bouw en schaal je business met{' '}
+              <span className="text-primary">
+                AI-automation
+              </span>{' '}
+              in snelle sprints.
+            </h1>
+
+            <div className="mx-auto max-w-2xl w-full">
+              {chatMessages.length > 0 && (
+                <div ref={chatContainerRef} className="rounded-lg p-4 max-h-80 overflow-y-auto space-y-3 mb-3 animate-fade-in">
+                  {chatMessages.map((msg) => (
                     <div
-                      className={`max-w-xs lg:max-w-md rounded-2xl px-4 py-2.5 flex-shrink-0 ${
-                        msg.role === 'user'
-                          ? 'bg-black/70 dark:bg-white/10 text-white rounded-br-none'
-                          : msg.isError
-                          ? 'bg-red-500/20 dark:bg-red-500/10 text-red-900 dark:text-red-100 rounded-bl-none'
-                          : 'bg-white/10 dark:bg-white/5 text-foreground rounded-bl-none'
-                      }`}
+                      key={msg.id}
+                      className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}
                     >
-                      {msg.isError && <div className="flex items-center gap-2 mb-1">
-                        <AlertCircle className="h-4 w-4" />
-                        <span className="text-xs font-semibold">Error</span>
-                      </div>}
-                      <p className="text-sm break-words leading-relaxed">{msg.message}</p>
+                      <div
+                        className={`max-w-xs lg:max-w-md rounded-2xl px-4 py-2.5 flex-shrink-0 ${
+                          msg.role === 'user'
+                            ? 'bg-black/70 dark:bg-white/10 text-white rounded-br-none'
+                            : msg.isError
+                            ? 'bg-red-500/20 dark:bg-red-500/10 text-red-900 dark:text-red-100 rounded-bl-none'
+                            : 'bg-white/10 dark:bg-white/5 text-foreground rounded-bl-none'
+                        }`}
+                      >
+                        {msg.isError && <div className="flex items-center gap-2 mb-1">
+                          <AlertCircle className="h-4 w-4" />
+                          <span className="text-xs font-semibold">Error</span>
+                        </div>}
+                        <p className="text-sm break-words leading-relaxed">{msg.message}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            )}
-            <PromptBox className="w-full" onMessage={handleMessage} />
-          </div>
+                  ))}
+                </div>
+              )}
+              <PromptBox className="w-full" onMessage={handleMessage} />
+            </div>
 
-          <p className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground mt-12">
-            Met de Happy Sprint Machine methodologie realiseren we AI-gedreven automations in korte, effectieve sprints. 
-            Monitor, beheer en optimaliseer al je workflows vanuit één krachtig dashboard.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/login">
-              <Button size="lg" className="w-full sm:w-auto font-semibold">
-                <Rocket className="mr-2 h-4 w-4" />
-                Start Je Sprint
-              </Button>
-            </Link>
-            <Link href="/about">
-              <Button size="lg" variant="outline" className="w-full sm:w-auto group">
-                Leer Meer Over Ons
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </Link>
+            <p className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground mt-12">
+              Met de Happy Sprint Machine methodologie realiseren we AI-gedreven automations in korte, effectieve sprints.
+              Monitor, beheer en optimaliseer al je workflows vanuit één krachtig dashboard.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link href="/login">
+                <Button size="lg" className="w-full sm:w-auto font-semibold">
+                  <Rocket className="mr-2 h-4 w-4" />
+                  Start Je Sprint
+                </Button>
+              </Link>
+              <Link href="/about">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto group">
+                  Leer Meer Over Ons
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -338,9 +348,9 @@ export default function Home() {
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
-              <Card key={index} className="border-2 transition-all hover:border-primary/50 hover:shadow-lg">
+              <Card key={index} className="border-2 transition-all hover:border-primary/50 hover:shadow-lg hover:scale-105 hover:-translate-y-1 animate-fade-in-up" style={{ animationDelay: `${index * 100}ms` }}>
                 <CardHeader>
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 transition-transform group-hover:scale-110 animate-float" style={{ animationDelay: `${index * 200}ms` }}>
                     <Icon className="h-6 w-6 text-primary" />
                   </div>
                   <CardTitle className="text-xl">{feature.title}</CardTitle>
@@ -351,6 +361,35 @@ export default function Home() {
               </Card>
             );
           })}
+        </div>
+      </section>
+
+      {/* Why AI Sprint Studio Section */}
+      <section className="border-y bg-muted/50 py-20 md:py-32">
+        <div className="container mx-auto px-4">
+          <div className="mx-auto max-w-3xl">
+            <div className="text-center mb-12">
+              <h2 className="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">
+                Waarom AI Sprint Studio
+              </h2>
+            </div>
+
+            <div className="space-y-6 text-lg text-muted-foreground">
+              <p>
+                Bij AI Sprint Studio geloven we dat AI niet iets is wat je vervangt, maar iets wat je versterkt.
+                We bestaan om bedrijven productiever, slimmer en menselijker te maken door AI voor hén te laten werken, niet andersom.
+              </p>
+
+              <p>
+                Veel organisaties weten dat ze "iets met AI" moeten, maar missen richting. Wij helpen ze om die eerste stap te zetten, de juiste strategie te bepalen en daarna concreet resultaat te boeken.
+                Altijd transparant, zonder jargon, en met focus op impact.
+              </p>
+
+              <p>
+                Wij brengen structuur in de AI-chaos, zodat mensen en technologie samen sneller vooruitgaan.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -367,13 +406,14 @@ export default function Home() {
 
         <div className="grid gap-8 md:grid-cols-3">
           {pricing.map((plan, index) => (
-            <Card 
-              key={index} 
-              className={`flex flex-col ${
-                plan.highlighted 
-                  ? 'border-primary shadow-lg shadow-primary/20 scale-105' 
+            <Card
+              key={index}
+              className={`flex flex-col transition-all hover:shadow-xl hover:-translate-y-2 animate-fade-in-up ${
+                plan.highlighted
+                  ? 'border-primary shadow-lg shadow-primary/20 scale-105 animate-glow'
                   : ''
               }`}
+              style={{ animationDelay: `${index * 150}ms` }}
             >
               <CardHeader>
                 <CardTitle className="text-2xl">{plan.name}</CardTitle>
