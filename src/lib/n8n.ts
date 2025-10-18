@@ -51,38 +51,39 @@ export interface WorkflowWithStats extends Workflow {
  */
 async function n8nFetch(endpoint: string, options: RequestInit = {}) {
   if (!N8N_API_URL || !N8N_API_KEY) {
-    throw new Error('n8n API URL or API Key not configured');
+    console.warn('n8n API configuration missing. Please set N8N_API_URL and N8N_API_KEY environment variables.');
+    return { data: [] };
   }
 
   const url = `${N8N_API_URL}/api/v1${endpoint}`;
-  
-  const response = await fetch(url, {
-    ...options,
-    headers: {
-      'X-N8N-API-KEY': N8N_API_KEY,
-      'Content-Type': 'application/json',
-      ...options.headers,
-    },
-  });
 
-  if (!response.ok) {
-    throw new Error(`n8n API error: ${response.status} ${response.statusText}`);
+  try {
+    const response = await fetch(url, {
+      ...options,
+      headers: {
+        'X-N8N-API-KEY': N8N_API_KEY,
+        'Content-Type': 'application/json',
+        ...options.headers,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`n8n API error: ${response.status} ${response.statusText}`);
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error('n8n fetch error:', error);
+    return { data: [] };
   }
-
-  return response.json();
 }
 
 /**
  * Get all workflows
  */
 export async function getWorkflows(): Promise<Workflow[]> {
-  try {
-    const data = await n8nFetch('/workflows');
-    return data.data || [];
-  } catch (error) {
-    console.error('Error fetching workflows:', error);
-    return [];
-  }
+  const data = await n8nFetch('/workflows');
+  return data.data || [];
 }
 
 /**
@@ -252,5 +253,97 @@ export function formatRuntime(milliseconds: number): string {
     const minutes = Math.floor(milliseconds / 60000);
     const seconds = Math.floor((milliseconds % 60000) / 1000);
     return `${minutes}m ${seconds}s`;
+  }
+}
+
+/**
+ * Get workflows filtered by company tags
+ */
+export async function getWorkflowsByCompany(company: string): Promise<WorkflowWithStats[]> {
+  try {
+    const allWorkflows = await getWorkflowsWithStats();
+    
+    // Filter by company tag or return all for admin
+    if (company === 'AI Sprint Studio') {
+      return allWorkflows;
+    }
+    
+    return allWorkflows.filter(workflow => {
+      if (!workflow.tags) return false;
+      return workflow.tags.some(tag => 
+        tag.name.toLowerCase().includes(company.toLowerCase())
+      );
+    });
+  } catch (error) {
+    console.error('Error fetching workflows by company:', error);
+    return [];
+  }
+}
+
+/**
+ * Get detailed execution history for a workflow
+ */
+export async function getExecutionHistory(
+  workflowId: string, 
+  limit: number = 20
+): Promise<Execution[]> {
+  try {
+    return await getExecutions(workflowId, limit);
+  } catch (error) {
+    console.error(`Error fetching execution history for workflow ${workflowId}:`, error);
+    return [];
+  }
+}
+
+/**
+ * Get detailed information about a specific execution
+ */
+export async function getExecutionDetails(executionId: string): Promise<Execution | null> {
+  try {
+    return await n8nFetch(`/executions/${executionId}`);
+  } catch (error) {
+    console.error(`Error fetching execution ${executionId}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Get execution statistics for the last N days
+ */
+export async function getExecutionTimeline(
+  workflowId?: string, 
+  days: number = 7
+): Promise<Array<{ date: string; success: number; error: number; total: number }>> {
+  try {
+    const executions = await getExecutions(workflowId, 1000);
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - days);
+    
+    const timeline: Record<string, { success: number; error: number; total: number }> = {};
+    
+    executions.forEach(execution => {
+      const execDate = new Date(execution.startedAt);
+      if (execDate >= startDate) {
+        const dateKey = execDate.toISOString().split('T')[0];
+        
+        if (!timeline[dateKey]) {
+          timeline[dateKey] = { success: 0, error: 0, total: 0 };
+        }
+        
+        timeline[dateKey].total++;
+        if (execution.status === 'success') {
+          timeline[dateKey].success++;
+        } else if (execution.status === 'error') {
+          timeline[dateKey].error++;
+        }
+      }
+    });
+    
+    return Object.entries(timeline)
+      .map(([date, stats]) => ({ date, ...stats }))
+      .sort((a, b) => a.date.localeCompare(b.date));
+  } catch (error) {
+    console.error('Error fetching execution timeline:', error);
+    return [];
   }
 }

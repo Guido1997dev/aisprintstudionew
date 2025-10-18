@@ -1,8 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/auth-context';
 import { ProtectedRoute } from '@/components/protected-route';
 import { DashboardLayout } from '@/components/dashboard-layout';
+import { CompanyDashboard } from '@/components/company-dashboard';
+import { getCompanyWorkflows } from '@/lib/company-workflows';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -16,6 +19,8 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { TrendingUp, TrendingDown, ArrowUpRight, ArrowDownRight, Play, Zap, Clock, CheckCircle2, XCircle, Copy } from 'lucide-react';
 import { getWorkflowsWithStats, triggerWorkflow, toggleWorkflow, formatRuntime, type WorkflowWithStats } from '@/lib/n8n';
+import { WebhookSettings } from '@/components/webhook-settings';
+import { PromptBox } from '@/components/prompt-box';
 
 // Mock chart data
 const chartData = [
@@ -29,6 +34,7 @@ const chartData = [
 ];
 
 export default function DashboardPage() {
+  const { user } = useAuth();
   const [workflows, setWorkflows] = useState<WorkflowWithStats[]>([]);
   const [timePeriod, setTimePeriod] = useState('3months');
   const [webhookUrl, setWebhookUrl] = useState('');
@@ -37,18 +43,17 @@ export default function DashboardPage() {
   const [triggering, setTriggering] = useState(false);
   const [triggerResult, setTriggerResult] = useState<{ success: boolean; message: string } | null>(null);
   const [useTestUrl, setUseTestUrl] = useState(true);
+  
+  // Check if user has company-specific workflows
+  const hasCompanyWorkflows = user && getCompanyWorkflows(user.company).length > 0;
 
   useEffect(() => {
     loadData();
   }, []);
 
   const loadData = async () => {
-    try {
-      const workflowsData = await getWorkflowsWithStats();
-      setWorkflows(workflowsData);
-    } catch (error) {
-      console.error('Error loading data:', error);
-    }
+    const workflowsData = await getWorkflowsWithStats();
+    setWorkflows(workflowsData);
   };
 
   const handleToggleWorkflow = async (id: string, currentActive: boolean) => {
@@ -163,10 +168,30 @@ export default function DashboardPage() {
     </Card>
   );
 
+  // If user has company-specific workflows, show the company dashboard
+  if (hasCompanyWorkflows && user && user.company !== 'AI Sprint Studio') {
+    return (
+      <ProtectedRoute>
+        <DashboardLayout title={`${user.company} Dashboard`}>
+          <CompanyDashboard company={user.company} />
+        </DashboardLayout>
+      </ProtectedRoute>
+    );
+  }
+
+  // Otherwise show the full admin dashboard
   return (
     <ProtectedRoute>
       <DashboardLayout title="Automation Dashboard">
         <div className="space-y-6">
+        {workflows.length === 0 && (
+          <Alert>
+            <AlertTitle>n8n Not Connected</AlertTitle>
+            <AlertDescription>
+              No workflows found. Please configure your n8n instance by setting the <code className="bg-muted px-2 py-1 rounded text-sm">N8N_API_URL</code> and <code className="bg-muted px-2 py-1 rounded text-sm">N8N_API_KEY</code> environment variables to connect to n8n.
+            </AlertDescription>
+          </Alert>
+        )}
         {/* Stats Grid */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <StatCard
@@ -297,6 +322,7 @@ export default function DashboardPage() {
             </TabsTrigger>
             <TabsTrigger value="trigger">Trigger Webhook</TabsTrigger>
             <TabsTrigger value="performance">Performance Stats</TabsTrigger>
+            <TabsTrigger value="webhook-settings">Webhook Settings</TabsTrigger>
           </TabsList>
 
           {/* Automations Tab */}
@@ -615,7 +641,27 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
           </TabsContent>
+
+          {/* Webhook Settings Tab */}
+          <TabsContent value="webhook-settings" className="space-y-4">
+            <Card className="bg-card">
+              <CardHeader>
+                <CardTitle>Webhook Settings</CardTitle>
+                <CardDescription>Configure and manage webhook triggers for your workflows.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <WebhookSettings />
+              </CardContent>
+            </Card>
+          </TabsContent>
         </Tabs>
+        </div>
+
+        {/* Floating Chatbox */}
+        <div className="fixed bottom-6 right-6 w-96 max-w-[calc(100vw-2rem)] z-40">
+          <div className="rounded-lg shadow-2xl border bg-background/95 backdrop-blur">
+            <PromptBox className="rounded-lg" />
+          </div>
         </div>
       </DashboardLayout>
     </ProtectedRoute>

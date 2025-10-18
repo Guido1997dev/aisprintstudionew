@@ -46,6 +46,14 @@ const DEMO_USERS = [
     company: 'Company B',
     role: 'user' as const,
   },
+  {
+    id: '4',
+    email: 'info@croonco.nl',
+    password: 'croonco123',
+    name: 'CROONCO Admin',
+    company: 'CROONCO',
+    role: 'user' as const,
+  },
 ];
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {

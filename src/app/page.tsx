@@ -1,24 +1,62 @@
+'use client';
+
+import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Logo, LogoText } from '@/components/logo';
+import { PromptBox } from '@/components/prompt-box';
 import Link from 'next/link';
-import { 
-  Zap, 
-  BarChart3, 
+import {
+  Zap,
+  BarChart3,
   Rocket,
-  Workflow, 
+  Workflow,
   Code2,
   CheckCircle2,
   ArrowRight,
   Sparkles,
   Target,
-  Users
+  Users,
+  AlertCircle
 } from 'lucide-react';
 
+interface ChatMessage {
+  id: string;
+  role: 'user' | 'assistant';
+  message: string;
+  timestamp: string;
+  isError?: boolean;
+}
+
 export default function Home() {
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  const handleMessage = (message: { role: 'user' | 'assistant'; message: string; timestamp: string; isError?: boolean }) => {
+    const newMessage: ChatMessage = {
+      id: `${Date.now()}-${Math.random()}`,
+      role: message.role,
+      message: message.message,
+      timestamp: message.timestamp,
+      isError: message.isError,
+    };
+    setChatMessages(prev => [...prev, newMessage]);
+  };
+
+  // Auto-scroll to bottom when messages change
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      setTimeout(() => {
+        if (chatContainerRef.current) {
+          chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+        }
+      }, 0);
+    }
+  }, [chatMessages]);
+
   const features = [
     {
       icon: Rocket,
@@ -149,11 +187,8 @@ export default function Home() {
 
           <div className="flex items-center gap-4">
             <ThemeToggle />
-            <Link href="/login">
-              <Button variant="ghost" size="sm">Inloggen</Button>
-            </Link>
-            <Link href="/login">
-              <Button size="sm">Start Sprint</Button>
+            <Link href="/dashboard">
+              <Button size="sm">Dashboard</Button>
             </Link>
           </div>
         </div>
@@ -167,15 +202,45 @@ export default function Home() {
             Happy Sprint Machine
           </Badge>
           
-          <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+          <h1 className="mb-12 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
             Bouw en schaal je business met{' '}
-            <span className="bg-gradient-to-r from-primary via-orange-500 to-primary bg-clip-text text-transparent">
+            <span className="text-primary">
               AI-automation
             </span>{' '}
             in snelle sprints.
           </h1>
-          
-          <p className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground">
+
+          <div className="mx-auto max-w-2xl w-full">
+            {chatMessages.length > 0 && (
+              <div ref={chatContainerRef} className="rounded-lg p-4 max-h-80 overflow-y-auto space-y-3 mb-3">
+                {chatMessages.map((msg) => (
+                  <div
+                    key={msg.id}
+                    className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}
+                  >
+                    <div
+                      className={`max-w-xs lg:max-w-md rounded-2xl px-4 py-2.5 flex-shrink-0 ${
+                        msg.role === 'user'
+                          ? 'bg-black/70 dark:bg-white/10 text-white rounded-br-none'
+                          : msg.isError
+                          ? 'bg-red-500/20 dark:bg-red-500/10 text-red-900 dark:text-red-100 rounded-bl-none'
+                          : 'bg-white/10 dark:bg-white/5 text-foreground rounded-bl-none'
+                      }`}
+                    >
+                      {msg.isError && <div className="flex items-center gap-2 mb-1">
+                        <AlertCircle className="h-4 w-4" />
+                        <span className="text-xs font-semibold">Error</span>
+                      </div>}
+                      <p className="text-sm break-words leading-relaxed">{msg.message}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            <PromptBox className="w-full" onMessage={handleMessage} />
+          </div>
+
+          <p className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground mt-12">
             Met de Happy Sprint Machine methodologie realiseren we AI-gedreven automations in korte, effectieve sprints. 
             Monitor, beheer en optimaliseer al je workflows vanuit één krachtig dashboard.
           </p>
@@ -204,7 +269,7 @@ export default function Home() {
             <div className="text-center mb-12">
               <Badge className="mb-4">Onze Methodologie</Badge>
               <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
-                De Happy Sprint Machine
+                De Happy Sprint Machine®
               </h2>
               <p className="text-lg text-muted-foreground">
                 Snelle resultaten, tevreden teams, en continue verbetering

@@ -38,8 +38,9 @@ export default function LoginPage() {
 
   const demoAccounts = [
     { email: 'admin@aisprintstudio.nl', password: 'admin123', label: 'Admin' },
-    { email: 'klant1@bedrijf.nl', password: 'demo123', label: 'Klant 1' },
-    { email: 'klant2@company.com', password: 'demo123', label: 'Klant 2' },
+    { email: 'info@croonco.nl', password: 'croonco123', label: 'CROONCO' },
+    { email: 'klant1@bedrijf.nl', password: 'demo123', label: 'Demo 1' },
+    { email: 'klant2@company.com', password: 'demo123', label: 'Demo 2' },
   ];
 
   const fillDemoAccount = (email: string, password: string) => {
@@ -63,7 +64,7 @@ export default function LoginPage() {
           
           <h1 className="text-4xl font-bold tracking-tight">
             Welkom bij je{' '}
-            <span className="bg-gradient-to-r from-primary via-orange-500 to-primary bg-clip-text text-transparent">
+            <span className="text-primary">
               Automation Dashboard
             </span>
           </h1>
@@ -174,7 +175,7 @@ export default function LoginPage() {
                   <p className="text-sm text-muted-foreground mb-3">
                     Demo accounts:
                   </p>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-2 gap-2">
                     {demoAccounts.map((account, index) => (
                       <Button
                         key={index}
@@ -230,4 +231,3 @@ export default function LoginPage() {
     </div>
   );
 }
-

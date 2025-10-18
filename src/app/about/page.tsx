@@ -102,7 +102,7 @@ export default function AboutPage() {
           
           <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
             Wij zijn{' '}
-            <span className="bg-gradient-to-r from-primary via-orange-500 to-primary bg-clip-text text-transparent">
+            <span className="text-primary">
               AI Sprint Studio
             </span>
           </h1>
@@ -350,4 +350,3 @@ export default function AboutPage() {
     </div>
   );
 }
-
