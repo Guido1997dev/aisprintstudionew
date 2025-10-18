@@ -34,30 +34,8 @@ const TooltipContent = React.forwardRef<
 ));
 TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 
-const Popover = PopoverPrimitive.Root;
-const PopoverTrigger = PopoverPrimitive.Trigger;
-const PopoverContent = React.forwardRef<
-  React.ElementRef<typeof PopoverPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>
->(({ className, align = 'center', sideOffset = 4, ...props }, ref) => (
-  <PopoverPrimitive.Portal>
-    <PopoverPrimitive.Content
-      ref={ref}
-      align={align}
-      sideOffset={sideOffset}
-      className={cn(
-        'z-50 w-64 rounded-xl bg-popover dark:bg-[#303030] p-2 text-popover-foreground dark:text-white shadow-md outline-none animate-in data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
-        className
-      )}
-      {...props}
-    />
-  </PopoverPrimitive.Portal>
-));
-PopoverContent.displayName = PopoverPrimitive.Content.displayName;
-
 const Dialog = DialogPrimitive.Root;
 const DialogPortal = DialogPrimitive.Portal;
-const DialogTrigger = DialogPrimitive.Trigger;
 const DialogOverlay = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
@@ -110,25 +88,6 @@ const PlusIcon = (props: React.SVGProps<SVGSVGElement>) => (
   >
     <path d="M12 5V19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-const Settings2Icon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M20 7h-9" />
-    <path d="M14 17H5" />
-    <circle cx="17" cy="17" r="3" />
-    <circle cx="7" cy="7" r="3" />
   </svg>
 );
 
@@ -300,7 +259,6 @@ export const PromptBox = React.forwardRef<
   const [value, setValue] = React.useState('');
   const [imagePreview, setImagePreview] = React.useState<string | null>(null);
   const [selectedTool, setSelectedTool] = React.useState<string | null>(null);
-  const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
   const [isImageDialogOpen, setIsImageDialogOpen] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -330,7 +288,6 @@ export const PromptBox = React.forwardRef<
         }
       }
     }
-    if (props.onChange) props.onChange(e);
   };
 
   const handlePlusClick = () => {
@@ -461,6 +418,7 @@ export const PromptBox = React.forwardRef<
               className="transition-transform"
               onClick={() => setIsImageDialogOpen(true)}
             >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={imagePreview}
                 alt="Image preview"
@@ -476,6 +434,7 @@ export const PromptBox = React.forwardRef<
             </button>
           </div>
           <DialogContent>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={imagePreview}
               alt="Full size preview"
