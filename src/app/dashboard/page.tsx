@@ -43,6 +43,8 @@ export default function DashboardPage() {
   const [triggering, setTriggering] = useState(false);
   const [triggerResult, setTriggerResult] = useState<{ success: boolean; message: string } | null>(null);
   const [useTestUrl, setUseTestUrl] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   
   // Check if user has company-specific workflows
   const hasCompanyWorkflows = user && getCompanyWorkflows(user.company).length > 0;
@@ -52,8 +54,21 @@ export default function DashboardPage() {
   }, []);
 
   const loadData = async () => {
-    const workflowsData = await getWorkflowsWithStats();
-    setWorkflows(workflowsData);
+    setIsLoading(true);
+    setError(null);
+    try {
+      const workflowsData = await getWorkflowsWithStats();
+      setWorkflows(workflowsData);
+      if (workflowsData.length === 0) {
+        setError('n8n not configured');
+      }
+    } catch (err) {
+      console.error('Failed to load workflows:', err);
+      setError('n8n not configured');
+      setWorkflows([]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleToggleWorkflow = async (id: string, currentActive: boolean) => {
@@ -184,15 +199,21 @@ export default function DashboardPage() {
     <ProtectedRoute>
       <DashboardLayout title="Automation Dashboard">
         <div className="space-y-6">
-        {workflows.length === 0 && (
-          <Alert>
-            <AlertTitle>n8n Not Connected</AlertTitle>
+        {error && (
+          <Alert variant="destructive">
+            <AlertTitle>n8n Configuration Required</AlertTitle>
             <AlertDescription>
-              No workflows found. Please configure your n8n instance by setting the <code className="bg-muted px-2 py-1 rounded text-sm">N8N_API_URL</code> and <code className="bg-muted px-2 py-1 rounded text-sm">N8N_API_KEY</code> environment variables to connect to n8n.
+              The n8n instance is not configured. To use the automation dashboard, please set the following environment variables:
+              <div className="mt-3 space-y-2 text-sm font-mono">
+                <p><code className="bg-red-500/20 px-2 py-1 rounded">N8N_API_URL</code> - Your n8n API endpoint (e.g., https://n8n.example.com)</p>
+                <p><code className="bg-red-500/20 px-2 py-1 rounded">N8N_API_KEY</code> - Your n8n API key</p>
+              </div>
+              <p className="mt-3 text-xs">Note: These can be set as NEXT_PUBLIC_* variables for client-side access or as server-only variables.</p>
             </AlertDescription>
           </Alert>
         )}
         {/* Stats Grid */}
+        {!error && (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <StatCard
             title="Total Automations"
@@ -231,8 +252,10 @@ export default function DashboardPage() {
             icon={Clock}
           />
         </div>
+        )}
 
         {/* Chart Section */}
+        {!error && (
         <Card className="bg-card">
           <CardHeader>
             <div className="flex items-center justify-between">
@@ -310,8 +333,10 @@ export default function DashboardPage() {
             </div>
           </CardContent>
         </Card>
+        )}
 
         {/* Tabs Section */}
+        {!error && (
         <Tabs defaultValue="automations" className="space-y-4">
           <TabsList className="bg-muted">
             <TabsTrigger value="automations">
@@ -655,6 +680,7 @@ export default function DashboardPage() {
             </Card>
           </TabsContent>
         </Tabs>
+        )}
         </div>
 
         {/* Floating Chatbox */}

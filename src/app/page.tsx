@@ -35,8 +35,11 @@ interface ChatMessage {
 
 export default function Home() {
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
+  const [isMounted, setIsMounted] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
+  const orbHoverRef = useRef(0);
+  const heroSectionRef = useRef<HTMLDivElement>(null);
 
   const handleMessage = (message: { role: 'user' | 'assistant'; message: string; timestamp: string; isError?: boolean }) => {
     const newMessage: ChatMessage = {
@@ -49,6 +52,11 @@ export default function Home() {
     setChatMessages(prev => [...prev, newMessage]);
   };
 
+  // Set mounted state after hydration
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   // Auto-scroll to bottom when messages change
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -59,6 +67,46 @@ export default function Home() {
       }, 0);
     }
   }, [chatMessages]);
+
+  // Track mouse position for Orb hover effect (edge/ring only)
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!heroSectionRef.current) return;
+
+      const rect = heroSectionRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const width = rect.width;
+      const height = rect.height;
+      const size = Math.min(width, height);
+      const centerX = width / 2;
+      const centerY = height / 2;
+      const uvX = ((x - centerX) / size) * 2.0;
+      const uvY = ((y - centerY) / size) * 2.0;
+
+      const distance = Math.sqrt(uvX * uvX + uvY * uvY);
+
+      // Only trigger hover when cursor is on the ring/edge (between 0.5 and 0.85)
+      // Inner radius 0.5, outer radius 0.85 defines the interactive ring
+      if (distance >= 0.5 && distance <= 0.85) {
+        orbHoverRef.current = 1;
+      } else {
+        orbHoverRef.current = 0;
+      }
+    };
+
+    const handleMouseLeave = () => {
+      orbHoverRef.current = 0;
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    heroSectionRef.current?.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      heroSectionRef.current?.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
 
   const features = [
     {
@@ -186,6 +234,9 @@ export default function Home() {
             <a href="#pricing" className="text-sm font-medium transition-colors hover:text-primary">
               Pricing
             </a>
+            <a href="https://calendar.app.google/L61mNA6Bpkeq7np48" target="_blank" rel="noopener noreferrer" className="text-sm font-medium transition-colors hover:text-primary">
+              Plan Gesprek
+            </a>
           </nav>
 
           <div className="flex items-center gap-4">
@@ -198,10 +249,10 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-20 md:py-32">
+      <section ref={heroSectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden py-20 md:py-32">
         <div className="absolute inset-0">
-          {theme === 'dark' && (
-            <Orb hue={0} hoverIntensity={0.3} rotateOnHover={true} forceHoverState={false} />
+          {isMounted && theme === 'dark' && (
+            <Orb hue={0} hoverIntensity={0.3} rotateOnHover={true} forceHoverState={false} externalHoverRef={orbHoverRef} />
           )}
         </div>
         <div className="container mx-auto px-4 relative z-10">
@@ -261,12 +312,12 @@ export default function Home() {
                   Start Je Sprint
                 </Button>
               </Link>
-              <Link href="/about">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto group">
-                  Leer Meer Over Ons
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              <a href="https://calendar.app.google/L61mNA6Bpkeq7np48" target="_blank" rel="noopener noreferrer">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto font-semibold">
+                  <Sparkles className="mr-2 h-4 w-4" />
+                  Plan Kennismakingsgesprek
                 </Button>
-              </Link>
+              </a>
             </div>
           </div>
         </div>
@@ -474,6 +525,31 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Booking Section */}
+      <section className="container mx-auto px-4 py-20 md:py-32">
+        <div className="mx-auto max-w-3xl">
+          <div className="rounded-lg border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-transparent p-8 md:p-12 text-center">
+            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
+              Klaar om te beginnen?
+            </h2>
+            <p className="mb-8 text-lg text-muted-foreground">
+              Plan een kostenloos kennismakingsgesprek met ons team. We bespreken jouw doelen,
+              uitdagingen en hoe we je kunnen helpen met AI-automation en de Happy Sprint Machine.
+            </p>
+            <a
+              href="https://calendar.app.google/L61mNA6Bpkeq7np48"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button size="lg" className="font-semibold">
+                <Sparkles className="mr-2 h-4 w-4" />
+                Plan Je Kennismakingsgesprek
+              </Button>
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="border-y bg-muted/50 py-20">
         <div className="container mx-auto px-4">
@@ -538,6 +614,7 @@ export default function Home() {
               <h3 className="mb-4 text-sm font-semibold">Contact</h3>
               <ul className="space-y-2 text-sm">
                 <li><a href="mailto:info@aisprintstudio.nl" className="text-muted-foreground hover:text-foreground">info@aisprintstudio.nl</a></li>
+                <li><a href="https://calendar.app.google/L61mNA6Bpkeq7np48" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">Plan een Gesprek</a></li>
                 <li className="text-muted-foreground">Nederland</li>
               </ul>
             </div>

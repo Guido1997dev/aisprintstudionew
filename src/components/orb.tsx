@@ -2,8 +2,9 @@ import { useEffect, useRef } from 'react';
 import { Renderer, Program, Mesh, Triangle, Vec3 } from 'ogl';
 import './orb.css';
 
-export default function Orb({ hue = 0, hoverIntensity = 0.2, rotateOnHover = true, forceHoverState = false }) {
+export default function Orb({ hue = 0, hoverIntensity = 0.2, rotateOnHover = true, forceHoverState = false, externalHoverRef = null }) {
   const ctnDom = useRef(null);
+  const targetHoverRef = useRef(0);
 
   const vert = /* glsl */ `
     precision highp float;
@@ -203,36 +204,9 @@ export default function Orb({ hue = 0, hoverIntensity = 0.2, rotateOnHover = tru
     window.addEventListener('resize', resize);
     resize();
 
-    let targetHover = 0;
     let lastTime = 0;
     let currentRot = 0;
     const rotationSpeed = 0.3;
-
-    const handleMouseMove = e => {
-      const rect = container.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const width = rect.width;
-      const height = rect.height;
-      const size = Math.min(width, height);
-      const centerX = width / 2;
-      const centerY = height / 2;
-      const uvX = ((x - centerX) / size) * 2.0;
-      const uvY = ((y - centerY) / size) * 2.0;
-
-      if (Math.sqrt(uvX * uvX + uvY * uvY) < 0.8) {
-        targetHover = 1;
-      } else {
-        targetHover = 0;
-      }
-    };
-
-    const handleMouseLeave = () => {
-      targetHover = 0;
-    };
-
-    container.addEventListener('mousemove', handleMouseMove);
-    container.addEventListener('mouseleave', handleMouseLeave);
 
     let rafId;
     const update = t => {
@@ -243,7 +217,8 @@ export default function Orb({ hue = 0, hoverIntensity = 0.2, rotateOnHover = tru
       program.uniforms.hue.value = hue;
       program.uniforms.hoverIntensity.value = hoverIntensity;
 
-      const effectiveHover = forceHoverState ? 1 : targetHover;
+      const externalHover = externalHoverRef?.current ?? 0;
+      const effectiveHover = forceHoverState ? 1 : externalHover;
       program.uniforms.hover.value += (effectiveHover - program.uniforms.hover.value) * 0.1;
 
       if (rotateOnHover && effectiveHover > 0.5) {
@@ -258,8 +233,6 @@ export default function Orb({ hue = 0, hoverIntensity = 0.2, rotateOnHover = tru
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener('resize', resize);
-      container.removeEventListener('mousemove', handleMouseMove);
-      container.removeEventListener('mouseleave', handleMouseLeave);
       if (container.contains(gl.canvas)) {
         container.removeChild(gl.canvas);
       }

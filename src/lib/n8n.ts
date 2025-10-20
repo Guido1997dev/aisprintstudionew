@@ -52,7 +52,7 @@ export interface WorkflowWithStats extends Workflow {
 async function n8nFetch(endpoint: string, options: RequestInit = {}) {
   if (!N8N_API_URL || !N8N_API_KEY) {
     console.warn('n8n API configuration missing. Please set N8N_API_URL and N8N_API_KEY environment variables.');
-    return { data: [] };
+    throw new Error('n8n API configuration missing');
   }
 
   const url = `${N8N_API_URL}/api/v1${endpoint}`;
@@ -74,7 +74,7 @@ async function n8nFetch(endpoint: string, options: RequestInit = {}) {
     return response.json();
   } catch (error) {
     console.error('n8n fetch error:', error);
-    return { data: [] };
+    throw error;
   }
 }
 
@@ -82,8 +82,13 @@ async function n8nFetch(endpoint: string, options: RequestInit = {}) {
  * Get all workflows
  */
 export async function getWorkflows(): Promise<Workflow[]> {
-  const data = await n8nFetch('/workflows');
-  return data.data || [];
+  try {
+    const data = await n8nFetch('/workflows');
+    return data.data || [];
+  } catch (error) {
+    console.error('Error fetching workflows:', error);
+    return [];
+  }
 }
 
 /**
