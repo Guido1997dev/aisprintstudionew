@@ -11,8 +11,7 @@ interface OrbProps {
 }
 
 export default function Orb({ hue = 0, hoverIntensity = 0.2, rotateOnHover = true, forceHoverState = false, externalHoverRef = null }: OrbProps) {
-  const ctnDom = useRef(null);
-  const targetHoverRef = useRef(0);
+  const ctnDom = useRef<HTMLDivElement>(null);
 
   const vert = /* glsl */ `
     precision highp float;
