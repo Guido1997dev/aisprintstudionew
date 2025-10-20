@@ -43,7 +43,6 @@ export default function DashboardPage() {
   const [triggering, setTriggering] = useState(false);
   const [triggerResult, setTriggerResult] = useState<{ success: boolean; message: string } | null>(null);
   const [useTestUrl, setUseTestUrl] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
   // Check if user has company-specific workflows
@@ -54,7 +53,6 @@ export default function DashboardPage() {
   }, []);
 
   const loadData = async () => {
-    setIsLoading(true);
     setError(null);
     try {
       const workflowsData = await getWorkflowsWithStats();
@@ -66,8 +64,6 @@ export default function DashboardPage() {
       console.error('Failed to load workflows:', err);
       setError('n8n not configured');
       setWorkflows([]);
-    } finally {
-      setIsLoading(false);
     }
   };
 

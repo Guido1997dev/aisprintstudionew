@@ -2,7 +2,15 @@ import { useEffect, useRef } from 'react';
 import { Renderer, Program, Mesh, Triangle, Vec3 } from 'ogl';
 import './orb.css';
 
-export default function Orb({ hue = 0, hoverIntensity = 0.2, rotateOnHover = true, forceHoverState = false, externalHoverRef = null }) {
+interface OrbProps {
+  hue?: number;
+  hoverIntensity?: number;
+  rotateOnHover?: boolean;
+  forceHoverState?: boolean;
+  externalHoverRef?: React.RefObject<number> | null;
+}
+
+export default function Orb({ hue = 0, hoverIntensity = 0.2, rotateOnHover = true, forceHoverState = false, externalHoverRef = null }: OrbProps) {
   const ctnDom = useRef(null);
   const targetHoverRef = useRef(0);
 

@@ -18,7 +18,6 @@ import {
   Workflow,
   Code2,
   CheckCircle2,
-  ArrowRight,
   Sparkles,
   Target,
   Users,
@@ -38,7 +37,6 @@ export default function Home() {
   const [isMounted, setIsMounted] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
-  const orbHoverRef = useRef(0);
   const heroSectionRef = useRef<HTMLDivElement>(null);
 
   const handleMessage = (message: { role: 'user' | 'assistant'; message: string; timestamp: string; isError?: boolean }) => {
@@ -89,14 +87,14 @@ export default function Home() {
       // Only trigger hover when cursor is on the ring/edge (between 0.5 and 0.85)
       // Inner radius 0.5, outer radius 0.85 defines the interactive ring
       if (distance >= 0.5 && distance <= 0.85) {
-        orbHoverRef.current = 1;
+        // Handle hover state if needed
       } else {
-        orbHoverRef.current = 0;
+        // Handle non-hover state if needed
       }
     };
 
     const handleMouseLeave = () => {
-      orbHoverRef.current = 0;
+      // Handle mouse leave if needed
     };
 
     window.addEventListener('mousemove', handleMouseMove);
@@ -252,7 +250,7 @@ export default function Home() {
       <section ref={heroSectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden py-20 md:py-32">
         <div className="absolute inset-0">
           {isMounted && theme === 'dark' && (
-            <Orb hue={0} hoverIntensity={0.3} rotateOnHover={true} forceHoverState={false} externalHoverRef={orbHoverRef} />
+            <Orb hue={0} hoverIntensity={0.3} rotateOnHover={true} forceHoverState={false} />
           )}
         </div>
         <div className="container mx-auto px-4 relative z-10">
@@ -432,7 +430,7 @@ export default function Home() {
               </p>
 
               <p>
-                Veel organisaties weten dat ze "iets met AI" moeten, maar missen richting. Wij helpen ze om die eerste stap te zetten, de juiste strategie te bepalen en daarna concreet resultaat te boeken.
+                Veel organisaties weten dat ze &quot;iets met AI&quot; moeten, maar missen richting. Wij helpen ze om die eerste stap te zetten, de juiste strategie te bepalen en daarna concreet resultaat te boeken.
                 Altijd transparant, zonder jargon, en met focus op impact.
               </p>
 
