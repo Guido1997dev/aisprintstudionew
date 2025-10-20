@@ -287,7 +287,6 @@ export const PromptBox = React.forwardRef<
         }
       }
     }
-    if (props.onChange) props.onChange(e);
   };
 
   const handlePlusClick = () => {
