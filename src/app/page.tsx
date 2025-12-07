@@ -322,7 +322,7 @@ export default function Home() {
 
   return (
     <ClickSpark
-      sparkColor="hsl(var(--primary))"
+      sparkColor={theme === 'dark' ? '#ff6b35' : 'hsl(var(--primary))'}
       sparkSize={10}
       sparkRadius={15}
       sparkCount={8}
