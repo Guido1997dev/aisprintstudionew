@@ -30,7 +30,8 @@ import {
   Database,
   Video,
   ExternalLink,
-  ChevronDown
+  ChevronDown,
+  Calendar
 } from 'lucide-react';
 
 interface ChatMessage {
@@ -120,7 +121,7 @@ export default function Home() {
     {
       icon: Rocket,
       title: 'Happy Sprint Machine',
-      description: 'Onze bewezen methodologie om AI-gedreven innovaties snel en efficiënt te realiseren in sprints.',
+      description: 'De bewezen methodologie om AI-gedreven innovaties snel en efficiënt te realiseren in sprints.',
     },
     {
       icon: Zap,
@@ -789,6 +790,22 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Floating Calendar Button */}
+      <a
+        href="https://calendar.app.google/hzFh9uHLzH8qaCYXA"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50"
+      >
+        <Button
+          size="lg"
+          className="rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105 h-14 px-6 gap-2"
+        >
+          <Calendar className="h-5 w-5" />
+          <span className="hidden sm:inline font-semibold">Plan Gesprek</span>
+        </Button>
+      </a>
     </div>
   );
 }
