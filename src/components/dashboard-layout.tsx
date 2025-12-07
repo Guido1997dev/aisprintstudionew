@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useAuth } from '@/contexts/auth-context';
 import { SidebarNav } from './sidebar-nav';
 import { ThemeToggle } from './theme-toggle';
@@ -7,7 +8,7 @@ import { Button } from './ui/button';
 import { Avatar, AvatarFallback } from './ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
 import { Badge } from './ui/badge';
-import { LogOut, User, Building2 } from 'lucide-react';
+import { LogOut, User, Building2, Menu, X } from 'lucide-react';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -16,6 +17,7 @@ interface DashboardLayoutProps {
 
 export function DashboardLayout({ children, title = 'Dashboard' }: DashboardLayoutProps) {
   const { user, logout } = useAuth();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const getInitials = (name: string) => {
     return name
@@ -28,22 +30,61 @@ export function DashboardLayout({ children, title = 'Dashboard' }: DashboardLayo
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">
-      {/* Sidebar */}
-      <SidebarNav />
+      {/* Desktop Sidebar - Hidden on mobile */}
+      <div className="hidden md:flex">
+        <SidebarNav />
+      </div>
+      
+      {/* Mobile Sidebar Overlay */}
+      <>
+        {/* Backdrop */}
+        {sidebarOpen && (
+          <div 
+            className="fixed inset-0 z-40 bg-black/50 md:hidden animate-in fade-in duration-200"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+          {/* Mobile Sidebar */}
+          <div className={`
+            fixed inset-y-0 left-0 z-50 w-64 bg-background border-r md:hidden
+            transform transition-transform duration-300 ease-in-out
+            ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+          `}>
+            <SidebarNav 
+              onLinkClick={() => setSidebarOpen(false)}
+            />
+          </div>
+      </>
       
       {/* Main Content */}
       <div className="flex flex-1 flex-col overflow-hidden">
         {/* Top Header */}
-        <header className="flex h-16 items-center justify-between border-b bg-background px-6">
-          <div>
-            <h1 className="text-2xl font-semibold">{title}</h1>
-            {user && (
-              <p className="text-sm text-muted-foreground">
-                {user.company}
-              </p>
-            )}
-          </div>
+        <header className="flex h-16 items-center justify-between border-b bg-background px-4 md:px-6">
           <div className="flex items-center gap-3">
+            {/* Mobile Menu Button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              aria-label="Toggle sidebar"
+            >
+              {sidebarOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
+            </Button>
+            <div>
+              <h1 className="text-xl md:text-2xl font-semibold">{title}</h1>
+              {user && (
+                <p className="text-xs md:text-sm text-muted-foreground">
+                  {user.company}
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="flex items-center gap-2 md:gap-3">
             <ThemeToggle />
             
             {/* User Menu */}
@@ -95,7 +136,7 @@ export function DashboardLayout({ children, title = 'Dashboard' }: DashboardLayo
         </header>
         
         {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto bg-background p-6">
+        <main className="flex-1 overflow-y-auto bg-background p-4 md:p-6">
           {children}
         </main>
       </div>

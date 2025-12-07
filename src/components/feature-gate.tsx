@@ -101,3 +101,9 @@ export function UpgradePrompt({ feature, tier = 'pro' }: UpgradePromptProps) {
     </div>
   );
 }
+
+
+
+
+
+

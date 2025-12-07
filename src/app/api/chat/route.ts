@@ -2,14 +2,41 @@ export async function POST(request: Request) {
   try {
     const payload = await request.json();
 
-    const webhookUrl = 'https://guidocroon.com/n8n/webhook/e5766a0b-e8ad-46ab-a284-34b9dbf2583c';
+    const webhookUrl = payload.webhookUrl;
+    if (!webhookUrl) {
+      return Response.json(
+        { error: 'Webhook URL not configured. Please set it in settings.' },
+        { status: 400 }
+      );
+    }
+
+    // Prepare webhook payload with RAG context if available
+    const webhookPayload = {
+      ...payload,
+      // Include RAG context in a structured format for the webhook
+      ragContext: payload.ragContext || null,
+      projectId: payload.projectId && payload.projectId !== 'none' ? payload.projectId : null,
+      // Format RAG context for easy consumption by AI workflows
+      context: payload.ragContext
+        ? {
+            sources: payload.ragContext.map((ctx: any) => ({
+              document: ctx.document_name,
+              project: ctx.project_name,
+              content: ctx.content,
+              similarity: ctx.similarity,
+              metadata: ctx.metadata,
+            })),
+            summary: `Found ${payload.ragContext.length} relevant document chunks from project "${payload.ragContext[0]?.project_name || 'Unknown'}"`,
+          }
+        : null,
+    };
 
     const response = await fetch(webhookUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(webhookPayload),
     });
 
     if (!response.ok) {

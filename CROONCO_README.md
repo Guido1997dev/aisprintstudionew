@@ -291,3 +291,9 @@ Stuur feedback naar: info@aisprintstudio.nl
 **Versie:** 1.0
 **Contact:** AI Sprint Studio - Happy Sprint Machine 🚀
 
+
+
+
+
+
+

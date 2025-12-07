@@ -247,12 +247,14 @@ const toolsList = [
 
 interface PromptBoxProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   onMessage?: (message: { role: 'user' | 'assistant'; message: string; timestamp: string; isError?: boolean }) => void;
+  selectedModel?: string;
+  selectedProjectId?: string;
 }
 
 export const PromptBox = React.forwardRef<
   HTMLTextAreaElement,
   PromptBoxProps
->(({ className, onMessage, ...props }, ref) => {
+>(({ className, onMessage, selectedModel, selectedProjectId, ...props }, ref) => {
   const internalTextareaRef = React.useRef<HTMLTextAreaElement>(null);
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const [value, setValue] = React.useState('');
@@ -332,11 +334,45 @@ export const PromptBox = React.forwardRef<
 
     setIsLoading(true);
     try {
+      const webhookUrl = typeof window !== 'undefined' ? localStorage.getItem('chatbox_webhook_url') : null;
+
+      // Fetch RAG context if project is selected
+      let ragContext = null;
+      if (selectedProjectId && selectedProjectId !== 'none' && userMessage.trim()) {
+        try {
+          const ragResponse = await fetch('/api/rag/search', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              query: userMessage,
+              projectId: selectedProjectId,
+              limit: 5,
+            }),
+          });
+
+          if (ragResponse.ok) {
+            const ragData = await ragResponse.json();
+            if (ragData.success && ragData.results && ragData.results.length > 0) {
+              ragContext = ragData.results;
+            }
+          }
+        } catch (ragError) {
+          console.warn('Failed to fetch RAG context:', ragError);
+          // Continue without RAG context if search fails
+        }
+      }
+
       const payload = {
         message: userMessage,
         tool: selectedTool || null,
         image: imagePreview ? { data: imagePreview, type: 'base64' } : null,
         timestamp: timestamp,
+        webhookUrl: webhookUrl || undefined,
+        model: selectedModel || undefined,
+        projectId: selectedProjectId || undefined,
+        ragContext: ragContext || undefined,
       };
 
       const response = await fetch('/api/chat', {

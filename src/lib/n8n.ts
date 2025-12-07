@@ -48,11 +48,13 @@ export interface WorkflowWithStats extends Workflow {
 
 /**
  * Fetch helper with n8n authentication
+ * Note: n8n API integration is optional - webhooks work without API
  */
 async function n8nFetch(endpoint: string, options: RequestInit = {}) {
   if (!N8N_API_URL || !N8N_API_KEY) {
-    console.warn('n8n API configuration missing. Please set N8N_API_URL and N8N_API_KEY environment variables.');
-    throw new Error('n8n API configuration missing');
+    // Return empty response instead of throwing - webhooks work without API
+    console.warn('n8n API configuration missing. Using webhooks only (API not required).');
+    return { data: [] };
   }
 
   const url = `${N8N_API_URL}/api/v1${endpoint}`;

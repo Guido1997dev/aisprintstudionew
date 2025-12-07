@@ -8,16 +8,22 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase configuration. Check .env.local');
-}
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Create Supabase client with fallback to prevent errors during development
+// In production, ensure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_KEY are set
+export const supabase = createClient(
+  supabaseUrl || 'https://placeholder.supabase.co',
+  supabaseAnonKey || 'placeholder-key',
+  {
+    auth: {
+      persistSession: typeof window !== 'undefined',
+    },
+  }
+);
 
 // For server-side operations with service role
 export const supabaseAdmin = createClient(
-  supabaseUrl,
-  process.env.SUPABASE_SERVICE_ROLE_KEY || supabaseAnonKey,
+  supabaseUrl || 'https://placeholder.supabase.co',
+  process.env.SUPABASE_SERVICE_ROLE_KEY || supabaseAnonKey || 'placeholder-key',
   {
     auth: {
       autoRefreshToken: false,
@@ -96,6 +102,52 @@ export interface ChatMessage {
   message: string;
   role: 'user' | 'assistant';
   created_at: string;
+}
+
+export interface Project {
+  id: string;
+  company_id: string;
+  name: string;
+  description: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Document {
+  id: string;
+  project_id: string;
+  company_id: string;
+  name: string;
+  file_path: string;
+  file_type: string;
+  file_size: number;
+  content_text: string | null;
+  status: 'uploading' | 'processing' | 'ready' | 'error';
+  error_message: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface DocumentChunk {
+  id: string;
+  document_id: string;
+  chunk_index: number;
+  content: string;
+  embedding: number[] | null;
+  metadata: Record<string, unknown> | null;
+  created_at: string;
+}
+
+export interface RAGContext {
+  chunk_id: string;
+  document_id: string;
+  document_name: string;
+  project_id: string;
+  project_name: string;
+  content: string;
+  chunk_index: number;
+  metadata: Record<string, unknown> | null;
+  similarity: number;
 }
 
 /**

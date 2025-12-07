@@ -57,12 +57,9 @@ export default function DashboardPage() {
     try {
       const workflowsData = await getWorkflowsWithStats();
       setWorkflows(workflowsData);
-      if (workflowsData.length === 0) {
-        setError('n8n not configured');
-      }
     } catch (err) {
       console.error('Failed to load workflows:', err);
-      setError('n8n not configured');
+      // Don't show error if n8n API is not configured - webhooks work without it
       setWorkflows([]);
     }
   };

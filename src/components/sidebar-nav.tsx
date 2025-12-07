@@ -14,6 +14,7 @@ import {
   FileText,
   FileEdit,
   MoreHorizontal,
+  MessageSquare,
 } from 'lucide-react';
 
 const mainNavItems = [
@@ -26,14 +27,25 @@ const mainNavItems = [
 ];
 
 const documentItems = [
-  { name: 'Data Library', href: '/data-library', icon: Database },
+  { name: 'Data Library', href: '/dashboard/data-library', icon: Database },
   { name: 'Reports', href: '/reports', icon: FileText },
   { name: 'Word Assistant', href: '/word-assistant', icon: FileEdit },
   { name: 'More', href: '/more', icon: MoreHorizontal },
 ];
 
-export function SidebarNav() {
+interface SidebarNavProps {
+  onLinkClick?: () => void;
+}
+
+export function SidebarNav({ onLinkClick }: SidebarNavProps) {
   const pathname = usePathname();
+
+  const handleLinkClick = () => {
+    // Close mobile sidebar when a link is clicked
+    if (onLinkClick) {
+      onLinkClick();
+    }
+  };
 
   return (
     <div className="flex h-full w-64 flex-col border-r bg-background">
@@ -47,7 +59,7 @@ export function SidebarNav() {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 space-y-1 px-3 py-4">
+      <nav className="flex-1 space-y-1 px-3 py-4 overflow-y-auto">
         <div className="space-y-1">
           {mainNavItems.map((item) => {
             const Icon = item.icon;
@@ -57,6 +69,7 @@ export function SidebarNav() {
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={handleLinkClick}
                 className={cn(
                   'flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors',
                   isActive
@@ -69,6 +82,21 @@ export function SidebarNav() {
               </Link>
             );
           })}
+          
+          {/* Chat Button */}
+          <Link
+            href="/dashboard/chat"
+            onClick={handleLinkClick}
+            className={cn(
+              'flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors',
+              pathname === '/dashboard/chat'
+                ? 'bg-secondary text-secondary-foreground'
+                : 'text-muted-foreground hover:bg-secondary/50 hover:text-foreground'
+            )}
+          >
+            <MessageSquare className="h-4 w-4" />
+            Chat
+          </Link>
         </div>
 
         {/* Documents Section */}
@@ -85,6 +113,7 @@ export function SidebarNav() {
                 <Link
                   key={item.href}
                   href={item.href}
+                  onClick={handleLinkClick}
                   className={cn(
                     'flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors',
                     isActive

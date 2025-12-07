@@ -189,3 +189,9 @@ Als alles klopt maar het werkt nog niet:
 - Disconnect en reconnect GitHub integration in Vercel
 - Contact Vercel support
 
+
+
+
+
+
+

@@ -52,3 +52,9 @@ echo "   - Op 'Settings' > 'General' > scroll naar 'Build & Development Settings
 echo "   - Clear 'Build Cache' indien nodig"
 echo ""
 
+
+
+
+
+
+
