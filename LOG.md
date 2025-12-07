@@ -213,4 +213,29 @@ Hero → Stats → Quick Scan → Happy Sprint → Features → **Use Cases** �
 
 ---
 
+## 2025-12-07 (Evening): Quick Scan Database Setup
+
+### Database Migration Uitgevoerd via Supabase MCP
+- **Tabel aangemaakt:** `quick_scan_submissions` in Supabase
+- **Project:** AIsprintstudioV2 (mbfpkjrvjuuzajgjbbpv)
+- **Migration naam:** create_quick_scan_submissions
+- **Status:** ✅ Succesvol
+
+### Schema Details
+- UUID primary key met uuid_generate_v4()
+- Required fields: name, email, website
+- Optional: challenge (textarea)
+- Status tracking: pending → in_progress → completed
+- Timestamps: created_at, updated_at (auto)
+- RLS policies:
+  - Public inserts (anonymous users)
+  - Authenticated read/update
+- Indexes: email, created_at DESC, status
+- Auto-update trigger voor updated_at field
+
+### Quick Scan Feature Nu Live
+Het formulier op de homepage kan nu submissions opslaan in de database. Error handling verbeterd met specifieke foutmeldingen voor debugging.
+
+---
+
 
