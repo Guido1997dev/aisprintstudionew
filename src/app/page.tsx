@@ -46,7 +46,9 @@ export default function Home() {
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [isMounted, setIsMounted] = useState(false);
   const [showAllProjects, setShowAllProjects] = useState(false);
+  const [showStats, setShowStats] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
   const heroSectionRef = useRef<HTMLDivElement>(null);
 
@@ -114,6 +116,30 @@ export default function Home() {
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       heroSectionRef.current?.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
+  // Intersection Observer for stats animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setShowStats(true);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    if (statsRef.current) {
+      observer.observe(statsRef.current);
+    }
+
+    return () => {
+      if (statsRef.current) {
+        observer.unobserve(statsRef.current);
+      }
     };
   }, []);
 
@@ -325,7 +351,7 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section ref={heroSectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden py-20 md:py-32">
+      <section ref={heroSectionRef} className="relative min-h-screen flex items-center justify-center overflow-hidden py-12 md:py-16">
         <div className="absolute inset-0">
           {isMounted && theme === 'dark' && (
             <Orb hue={0} hoverIntensity={0.3} rotateOnHover={true} forceHoverState={false} />
@@ -393,21 +419,23 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="container mx-auto px-4 py-12 border-b">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto text-center">
-          <div className="animate-fade-in-up" style={{ animationDelay: '0ms' }}>
+      <section ref={statsRef} className="container mx-auto px-4 py-8 border-b">
+        <div className={`grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto text-center transition-all duration-700 ${
+          showStats ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+        }`}>
+          <div style={{ transitionDelay: '0ms' }}>
             <div className="text-4xl md:text-5xl font-bold text-primary mb-2">12</div>
             <div className="text-sm text-muted-foreground">Sprints Voltooid</div>
           </div>
-          <div className="animate-fade-in-up" style={{ animationDelay: '100ms' }}>
+          <div style={{ transitionDelay: '100ms' }}>
             <div className="text-4xl md:text-5xl font-bold text-primary mb-2">6+</div>
             <div className="text-sm text-muted-foreground">Tevreden Klanten</div>
           </div>
-          <div className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+          <div style={{ transitionDelay: '200ms' }}>
             <div className="text-4xl md:text-5xl font-bold text-primary mb-2">24+</div>
             <div className="text-sm text-muted-foreground">Workflows Live</div>
           </div>
-          <div className="animate-fade-in-up" style={{ animationDelay: '300ms' }}>
+          <div style={{ transitionDelay: '300ms' }}>
             <div className="text-4xl md:text-5xl font-bold text-primary mb-2">95%</div>
             <div className="text-sm text-muted-foreground">Tevredenheid</div>
           </div>
@@ -415,7 +443,7 @@ export default function Home() {
       </section>
 
       {/* What We Build Section - Projects */}
-      <section className="border-y bg-muted/50 py-20">
+      <section className="border-y bg-muted/50 py-12">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-4xl">
             <div className="text-center mb-12">
@@ -475,7 +503,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="container mx-auto px-4 py-20 md:py-32">
+      <section className="container mx-auto px-4 py-12 md:py-16">
         <div className="mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <Badge className="mb-4">Concrete Oplossingen</Badge>
@@ -558,7 +586,7 @@ export default function Home() {
       </section>
 
       {/* Happy Sprint Machine Section */}
-      <section className="container mx-auto px-4 py-20 md:py-32">
+      <section className="container mx-auto px-4 py-12 md:py-16">
         <div className="mx-auto max-w-4xl">
           <div className="text-center mb-12">
             <Badge className="mb-4">Onze Methodologie</Badge>
@@ -627,7 +655,7 @@ export default function Home() {
       </section>
 
       {/* Why AI Sprint Studio Section */}
-      <section className="border-y bg-muted/50 py-20 md:py-32">
+      <section className="border-y bg-muted/50 py-12 md:py-16">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-3xl">
             <div className="text-center mb-12">
@@ -656,7 +684,7 @@ export default function Home() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="container mx-auto px-4 py-20 md:py-32">
+      <section id="pricing" className="container mx-auto px-4 py-12 md:py-16">
         <div className="mx-auto max-w-4xl text-center mb-16">
           <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
             Start je AI Sprint
@@ -712,7 +740,7 @@ export default function Home() {
       </section>
 
       {/* FAQ Section */}
-      <section className="container mx-auto px-4 py-20 md:py-32">
+      <section className="container mx-auto px-4 py-12 md:py-16">
         <div className="mx-auto max-w-3xl">
           <div className="text-center mb-16">
             <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
@@ -739,7 +767,7 @@ export default function Home() {
       </section>
 
       {/* Quick Scan CTA Section */}
-      <section className="container mx-auto px-4 py-20 md:py-32">
+      <section className="container mx-auto px-4 py-12 md:py-16">
         <QuickScanForm />
       </section>
 
