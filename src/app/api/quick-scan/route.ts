@@ -93,7 +93,7 @@ export async function POST(request: NextRequest) {
       try {
         const resend = new Resend(resendApiKey);
         await resend.emails.send({
-          from: 'AI Sprint Studio <noreply@aisprintstudio.nl>',
+          from: 'AI Sprint Studio <noreply@aisprintstudio.com>',
           to: 'gtcroon@gmail.com',
           subject: `Nieuwe Quick Scan Aanvraag: ${body.name}`,
           html: `
@@ -164,7 +164,7 @@ export async function POST(request: NextRequest) {
       try {
         const resend = new Resend(resendApiKey);
         await resend.emails.send({
-          from: 'AI Sprint Studio <noreply@aisprintstudio.nl>',
+          from: 'AI Sprint Studio <noreply@aisprintstudio.com>',
           to: body.email,
           subject: 'Bedankt voor je Quick Scan aanvraag! 🎯',
           html: `

@@ -68,7 +68,15 @@ Voor email notificaties naar het team en bevestigingsemails naar klanten:
 
 1. Maak een account aan op [Resend.com](https://resend.com)
 2. Maak een API key aan in je Resend dashboard
-3. Verifieer je domain (of gebruik de test domain voor development)
+3. **Domain verificatie (belangrijk!):**
+   - Ga naar "Domains" in je Resend dashboard
+   - Klik "Add Domain" en voer `aisprintstudio.com` in
+   - Resend geeft je DNS records die je moet toevoegen:
+     - **SPF record** (TXT record)
+     - **DKIM record** (TXT record)
+     - **DMARC record** (TXT record, optioneel maar aanbevolen)
+   - Voeg deze records toe in je domain provider (bijv. Cloudflare, Namecheap, etc.)
+   - Wacht tot verificatie compleet is (kan 5-30 minuten duren)
 4. Voeg toe aan `.env.local`:
 
 ```env
@@ -76,9 +84,15 @@ Voor email notificaties naar het team en bevestigingsemails naar klanten:
 RESEND_API_KEY=re_xxxxxxxxxxxxx
 ```
 
+**Belangrijk:** Je hoeft GEEN email account aan te maken! Resend verstuurt emails namens je domain via hun servers. Je verifieert alleen dat je de eigenaar bent van het domain via DNS records.
+
 **Email adressen:**
 - Team notificatie: `gtcroon@gmail.com` (hardcoded in code)
-- From address: `noreply@aisprintstudio.nl` (moet geverifieerd zijn in Resend)
+- From address: `noreply@aisprintstudio.com` (domain moet geverifieerd zijn in Resend)
+
+**Voor development/testing:**
+- Je kunt ook de Resend test domain gebruiken: `onboarding@resend.dev`
+- Dit werkt direct zonder domain verificatie
 
 #### n8n Webhook (Optional)
 Als je n8n notificaties wilt:
