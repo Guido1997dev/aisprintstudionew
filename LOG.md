@@ -171,6 +171,46 @@ Hero → Stats → Quick Scan → Happy Sprint → Features → **Use Cases** �
 
 **Result:** Clear, single conversion goal - book a meeting
 
+#### ✅ COMPLETED - Consistent Navigation
+**Fixed navigation across all pages:**
+- About page header now matches home page
+- Menu items consistent: Over Ons, Pricing, Plan Gesprek
+- Button text consistent: Dashboard (not varying names)
+- Footer links aligned across pages
+- Removed Portfolio link (page not yet implemented)
+- Calendar link in footer contact section
+
+**Result:** Professional, consistent user experience across site
+
+#### ✅ COMPLETED - Homepage Reordering & Testimonials
+**Logical User Journey:**
+- New order: Hero → Stats → Projects → Testimonials → Happy Sprint → Why → Pricing → FAQ → Quick Scan → Footer
+- Projects now come first (show credibility before asking for scan)
+- Quick Scan moved to bottom (after user is convinced)
+
+**Projects "Show More" Feature:**
+- Initially shows 2 use cases
+- "Meer weergeven" button reveals all 8
+- Smooth user experience, not overwhelming
+
+**Testimonials Carousel:**
+- Auto-rotating carousel (5 seconds per testimonial)
+- 5 testimonials total:
+  - 2 real (Jochem Croon - Aviation Lawyer, Jelle Bruinsma - Financieel Specialist)
+  - 3 realistic dummy (Lisa van Dam, Mark Hendriksen, Sophie de Vries)
+- Beknopte quotes in tone of voice van echte testimonials
+- Subtiel design: initials avatar, navigation arrows, dot indicators
+- Manual navigation stops auto-play
+
+**Happy Sprint Machine Link:**
+- Added "Lees meer" link to https://dehappysprintmachine.nl/
+- ExternalLink icon for clarity
+- Improved copy: mentions "100% voorspelbare software-projecten"
+
+**Removed:**
+- Duplicate Features Section
+- Old positioning of Quick Scan (was too early)
+
 ---
 
 

@@ -10,6 +10,7 @@ import { ThemeToggle } from '@/components/theme-toggle';
 import { Logo, LogoText } from '@/components/logo';
 import { PromptBox } from '@/components/prompt-box';
 import { QuickScanForm } from '@/components/quick-scan-form';
+import { TestimonialsCarousel } from '@/components/testimonials-carousel';
 import Orb from '@/components/orb';
 import Link from 'next/link';
 import {
@@ -27,7 +28,9 @@ import {
   MessageSquare,
   Mail,
   Database,
-  Video
+  Video,
+  ExternalLink,
+  ChevronDown
 } from 'lucide-react';
 
 interface ChatMessage {
@@ -41,6 +44,7 @@ interface ChatMessage {
 export default function Home() {
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [isMounted, setIsMounted] = useState(false);
+  const [showAllProjects, setShowAllProjects] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
   const heroSectionRef = useRef<HTMLDivElement>(null);
@@ -409,12 +413,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Quick Scan CTA Section */}
-      <section className="container mx-auto px-4 py-20">
-        <QuickScanForm />
-      </section>
-
-      {/* Happy Sprint Machine Section */}
+      {/* What We Build Section - Projects */}
       <section className="border-y bg-muted/50 py-20">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-4xl">
@@ -475,38 +474,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="container mx-auto px-4 py-20 md:py-32">
-        <div className="mx-auto max-w-4xl text-center mb-16">
-          <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
-            Alles wat je nodig hebt voor succesvolle AI-automation
-          </h2>
-          <p className="text-lg text-muted-foreground">
-            Van concept tot productie in één geïntegreerd platform
-          </p>
-        </div>
-
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature, index) => {
-            const Icon = feature.icon;
-            return (
-              <Card key={index} className="border-2 transition-all hover:border-primary/50 hover:shadow-lg hover:scale-105 hover:-translate-y-1 animate-fade-in-up" style={{ animationDelay: `${index * 100}ms` }}>
-                <CardHeader>
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 transition-transform group-hover:scale-110 animate-float" style={{ animationDelay: `${index * 200}ms` }}>
-                    <Icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <CardTitle className="text-xl">{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">{feature.description}</p>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* What We Build Section */}
       <section className="container mx-auto px-4 py-20 md:py-32">
         <div className="mx-auto max-w-6xl">
           <div className="text-center mb-16">
@@ -521,7 +488,7 @@ export default function Home() {
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {useCases.map((useCase, index) => {
+            {useCases.slice(0, showAllProjects ? useCases.length : 2).map((useCase, index) => {
               const Icon = useCase.icon;
               return (
                 <Card 
@@ -564,6 +531,102 @@ export default function Home() {
                 </Card>
               );
             })}
+          </div>
+
+          {!showAllProjects && (
+            <div className="text-center mt-12">
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => setShowAllProjects(true)}
+                className="group"
+              >
+                Meer weergeven
+                <ChevronDown className="ml-2 h-4 w-4 group-hover:translate-y-1 transition-transform" />
+              </Button>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="border-y bg-muted/50 py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <Badge className="mb-4">Wat Klanten Zeggen</Badge>
+            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
+              Resultaten die spreken
+            </h2>
+          </div>
+          <TestimonialsCarousel />
+        </div>
+      </section>
+
+      {/* Happy Sprint Machine Section */}
+      <section className="container mx-auto px-4 py-20 md:py-32">
+        <div className="mx-auto max-w-4xl">
+          <div className="text-center mb-12">
+            <Badge className="mb-4">Onze Methodologie</Badge>
+            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
+              De Happy Sprint Machine®
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6">
+              Onze bewezen methode voor 100% voorspelbare software-projecten. Gebaseerd op korte sprints, 
+              gedegen voorbereiding en uitstekend gedocumenteerde communicatie.
+            </p>
+            <a 
+              href="https://dehappysprintmachine.nl/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center text-primary hover:underline font-medium"
+            >
+              Lees meer over de methodologie
+              <ExternalLink className="ml-2 h-4 w-4" />
+            </a>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            <Card className="text-center border-2 hover:border-primary/50 hover:shadow-lg transition-all">
+              <CardHeader>
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                  <Target className="h-8 w-8 text-primary" />
+                </div>
+                <CardTitle>Sprint Planning</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  We starten met een duidelijk doel en concrete deliverables voor de sprint.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center border-2 hover:border-primary/50 hover:shadow-lg transition-all">
+              <CardHeader>
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                  <Zap className="h-8 w-8 text-primary" />
+                </div>
+                <CardTitle>Snel Bouwen</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  In korte iteraties bouwen we prototypes en working solutions.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center border-2 hover:border-primary/50 hover:shadow-lg transition-all">
+              <CardHeader>
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                  <Sparkles className="h-8 w-8 text-primary" />
+                </div>
+                <CardTitle>Happy Results</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  Direct waarde, tevreden stakeholders, en concrete business impact.
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
@@ -678,6 +741,11 @@ export default function Home() {
             ))}
           </Accordion>
         </div>
+      </section>
+
+      {/* Quick Scan CTA Section */}
+      <section className="container mx-auto px-4 py-20 md:py-32">
+        <QuickScanForm />
       </section>
 
       {/* Footer */}
