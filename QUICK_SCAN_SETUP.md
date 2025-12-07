@@ -24,6 +24,9 @@ De Quick Scan feature is een lead generation tool die bezoekers een gratis AI an
 - POST endpoint voor form submissions
 - Server-side validatie (email format, URL format)
 - Supabase database integratie
+- Email notificaties via Resend:
+  - Team notificatie naar gtcroon@gmail.com
+  - Bevestigingsemail naar klant
 - Optional n8n webhook trigger
 - Error handling
 
@@ -58,7 +61,26 @@ Of via command line:
 psql -h [your-supabase-host] -U postgres -d postgres -f quick-scan-table.sql
 ```
 
-### Stap 2: Environment Variables (Optional)
+### Stap 2: Environment Variables
+
+#### Email Notificaties (Resend)
+Voor email notificaties naar het team en bevestigingsemails naar klanten:
+
+1. Maak een account aan op [Resend.com](https://resend.com)
+2. Maak een API key aan in je Resend dashboard
+3. Verifieer je domain (of gebruik de test domain voor development)
+4. Voeg toe aan `.env.local`:
+
+```env
+# .env.local
+RESEND_API_KEY=re_xxxxxxxxxxxxx
+```
+
+**Email adressen:**
+- Team notificatie: `gtcroon@gmail.com` (hardcoded in code)
+- From address: `noreply@aisprintstudio.nl` (moet geverifieerd zijn in Resend)
+
+#### n8n Webhook (Optional)
 Als je n8n notificaties wilt:
 
 ```env
