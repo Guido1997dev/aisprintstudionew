@@ -11,6 +11,7 @@ import { Logo, LogoText } from '@/components/logo';
 import { PromptBox } from '@/components/prompt-box';
 import { QuickScanForm } from '@/components/quick-scan-form';
 import { TestimonialsCarousel } from '@/components/testimonials-carousel';
+import ClickSpark from '@/components/ClickSpark';
 import Orb from '@/components/orb';
 import Link from 'next/link';
 import {
@@ -320,8 +321,15 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
+    <ClickSpark
+      sparkColor="hsl(var(--primary))"
+      sparkSize={10}
+      sparkRadius={15}
+      sparkCount={8}
+      duration={400}
+    >
+      <div className="min-h-screen bg-background">
+        {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <Link href="/" className="flex items-center space-x-3">
@@ -834,6 +842,7 @@ export default function Home() {
           <span className="hidden sm:inline font-semibold">Plan Gesprek</span>
         </Button>
       </a>
-    </div>
+      </div>
+    </ClickSpark>
   );
 }
