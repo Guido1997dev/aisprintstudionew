@@ -550,14 +550,8 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="border-y bg-muted/50 py-20">
+      <section className="border-y bg-muted/50 py-12">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <Badge className="mb-4">Wat Klanten Zeggen</Badge>
-            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
-              Resultaten die spreken
-            </h2>
-          </div>
           <TestimonialsCarousel />
         </div>
       </section>

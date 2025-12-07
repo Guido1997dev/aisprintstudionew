@@ -71,52 +71,41 @@ export function TestimonialsCarousel() {
   const currentTestimonial = testimonials[currentIndex];
 
   return (
-    <div className="relative max-w-4xl mx-auto">
-      <Card className="border-none shadow-none bg-transparent">
-        <CardContent className="pt-6 px-8 md:px-12">
-          <div className="text-center">
-            {/* Quote */}
-            <p className="text-lg md:text-xl text-muted-foreground italic mb-6 leading-relaxed">
-              "{currentTestimonial.quote}"
-            </p>
+    <div className="relative max-w-3xl mx-auto py-8">
+      <div className="text-center px-4">
+        {/* Quote - Smaller and more subtle */}
+        <p className="text-base md:text-lg text-muted-foreground/90 italic mb-4 leading-relaxed">
+          "{currentTestimonial.quote}"
+        </p>
 
-            {/* Author */}
-            <div className="flex flex-col items-center">
-              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-3">
-                <span className="text-primary font-semibold text-lg">
-                  {currentTestimonial.name.split(' ').map(n => n[0]).join('')}
-                </span>
-              </div>
-              <p className="font-semibold text-foreground">{currentTestimonial.name}</p>
-              <p className="text-sm text-muted-foreground">
-                {currentTestimonial.role}
-              </p>
-              <p className="text-sm text-muted-foreground font-medium">
-                {currentTestimonial.company}
-              </p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+        {/* Author - Inline and compact */}
+        <div className="flex items-center justify-center gap-2 text-sm">
+          <span className="font-semibold text-foreground">{currentTestimonial.name}</span>
+          <span className="text-muted-foreground">•</span>
+          <span className="text-muted-foreground">{currentTestimonial.role}</span>
+          <span className="text-muted-foreground hidden sm:inline">•</span>
+          <span className="text-muted-foreground hidden sm:inline">{currentTestimonial.company}</span>
+        </div>
+      </div>
 
-      {/* Navigation Arrows */}
+      {/* Navigation Arrows - Smaller and more subtle */}
       <button
         onClick={goToPrevious}
-        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 h-10 w-10 rounded-full bg-background border shadow-sm hover:bg-muted transition-colors flex items-center justify-center"
+        className="absolute left-0 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full bg-background/50 border border-border/50 hover:bg-muted transition-colors flex items-center justify-center opacity-60 hover:opacity-100"
         aria-label="Previous testimonial"
       >
-        <ChevronLeft className="h-5 w-5" />
+        <ChevronLeft className="h-4 w-4" />
       </button>
       <button
         onClick={goToNext}
-        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 h-10 w-10 rounded-full bg-background border shadow-sm hover:bg-muted transition-colors flex items-center justify-center"
+        className="absolute right-0 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full bg-background/50 border border-border/50 hover:bg-muted transition-colors flex items-center justify-center opacity-60 hover:opacity-100"
         aria-label="Next testimonial"
       >
-        <ChevronRight className="h-5 w-5" />
+        <ChevronRight className="h-4 w-4" />
       </button>
 
-      {/* Dots Indicator */}
-      <div className="flex justify-center gap-2 mt-6">
+      {/* Dots Indicator - Smaller */}
+      <div className="flex justify-center gap-1.5 mt-6">
         {testimonials.map((_, index) => (
           <button
             key={index}
@@ -124,10 +113,10 @@ export function TestimonialsCarousel() {
               setIsAutoPlaying(false);
               setCurrentIndex(index);
             }}
-            className={`h-2 rounded-full transition-all ${
+            className={`h-1.5 rounded-full transition-all ${
               index === currentIndex 
-                ? 'w-8 bg-primary' 
-                : 'w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                ? 'w-6 bg-primary' 
+                : 'w-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/50'
             }`}
             aria-label={`Go to testimonial ${index + 1}`}
           />
