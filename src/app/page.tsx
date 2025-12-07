@@ -9,6 +9,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Logo, LogoText } from '@/components/logo';
 import { PromptBox } from '@/components/prompt-box';
+import { QuickScanForm } from '@/components/quick-scan-form';
 import Orb from '@/components/orb';
 import Link from 'next/link';
 import {
@@ -260,12 +261,11 @@ export default function Home() {
               Happy Sprint Machine
             </Badge>
 
-            <h1 className="mb-12 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl animate-fade-in-down">
-              Bouw en schaal je business met{' '}
+            <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl animate-fade-in-down">
+              Stop met praten over AI.{' '}
               <span className="text-primary">
-                AI-automation
-              </span>{' '}
-              in snelle sprints.
+                Start met bouwen.
+              </span>
             </h1>
 
             <div className="mx-auto max-w-2xl w-full">
@@ -298,9 +298,9 @@ export default function Home() {
               <PromptBox className="w-full" onMessage={handleMessage} />
             </div>
 
-            <p className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground mt-12">
-              Met de Happy Sprint Machine methodologie realiseren we AI-gedreven automations in korte, effectieve sprints.
-              Monitor, beheer en optimaliseer al je workflows vanuit één krachtig dashboard.
+            <p className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground">
+              We bouwen werkende AI-oplossingen in 1-4 weken. Geen maandenlange projecten, 
+              geen vage beloftes. Concrete automation die direct waarde levert.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -319,6 +319,33 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="container mx-auto px-4 py-12 border-b">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto text-center">
+          <div className="animate-fade-in-up" style={{ animationDelay: '0ms' }}>
+            <div className="text-4xl md:text-5xl font-bold text-primary mb-2">50+</div>
+            <div className="text-sm text-muted-foreground">Sprints Voltooid</div>
+          </div>
+          <div className="animate-fade-in-up" style={{ animationDelay: '100ms' }}>
+            <div className="text-4xl md:text-5xl font-bold text-primary mb-2">25+</div>
+            <div className="text-sm text-muted-foreground">Tevreden Klanten</div>
+          </div>
+          <div className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+            <div className="text-4xl md:text-5xl font-bold text-primary mb-2">300+</div>
+            <div className="text-sm text-muted-foreground">Workflows Live</div>
+          </div>
+          <div className="animate-fade-in-up" style={{ animationDelay: '300ms' }}>
+            <div className="text-4xl md:text-5xl font-bold text-primary mb-2">95%</div>
+            <div className="text-sm text-muted-foreground">Tevredenheid</div>
+          </div>
+        </div>
+      </section>
+
+      {/* Quick Scan CTA Section */}
+      <section className="container mx-auto px-4 py-20">
+        <QuickScanForm />
       </section>
 
       {/* Happy Sprint Machine Section */}
