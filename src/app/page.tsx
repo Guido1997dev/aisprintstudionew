@@ -362,14 +362,14 @@ export default function Home() {
           </Link>
           
           <nav className="hidden md:flex items-center space-x-6">
-            <Link href="/about" className="text-sm font-medium transition-colors hover:text-primary">
-              Over Ons
-            </Link>
+            <a href="#projects" className="text-sm font-medium transition-colors hover:text-primary">
+              Wat we bouwen
+            </a>
             <a href="#pricing" className="text-sm font-medium transition-colors hover:text-primary">
               Pricing
             </a>
-            <a href="https://calendar.app.google/hzFh9uHLzH8qaCYXA" target="_blank" rel="noopener noreferrer" className="text-sm font-medium transition-colors hover:text-primary">
-              Plan Gesprek
+            <a href="#faq" className="text-sm font-medium transition-colors hover:text-primary">
+              FAQ
             </a>
           </nav>
 
@@ -535,7 +535,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="container mx-auto px-4 py-12 md:py-16">
+      <section id="projects" className="container mx-auto px-4 py-12 md:py-16">
         <div className="mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <Badge className="mb-4">Concrete Oplossingen</Badge>
@@ -772,7 +772,7 @@ export default function Home() {
       </section>
 
       {/* FAQ Section */}
-      <section className="container mx-auto px-4 py-12 md:py-16">
+      <section id="faq" className="container mx-auto px-4 py-12 md:py-16">
         <div className="mx-auto max-w-3xl">
           <div className="text-center mb-16">
             <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
