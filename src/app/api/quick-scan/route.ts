@@ -42,6 +42,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Check if Supabase is configured
+    if (!supabaseUrl || !supabaseServiceKey) {
+      console.error('Supabase environment variables not configured');
+      return NextResponse.json(
+        { error: 'Database niet geconfigureerd. Neem contact op met de beheerder.' },
+        { status: 500 }
+      );
+    }
+
     // Initialize Supabase client
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
@@ -62,8 +71,17 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       console.error('Error saving to database:', error);
+      
+      // Check if table doesn't exist
+      if (error.code === '42P01' || error.message?.includes('does not exist')) {
+        return NextResponse.json(
+          { error: 'Database tabel bestaat nog niet. Voer eerst het SQL script uit in Supabase.' },
+          { status: 500 }
+        );
+      }
+      
       return NextResponse.json(
-        { error: 'Er ging iets mis bij het opslaan' },
+        { error: `Er ging iets mis bij het opslaan: ${error.message || 'Onbekende fout'}` },
         { status: 500 }
       );
     }

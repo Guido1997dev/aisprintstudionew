@@ -41,7 +41,8 @@ export function QuickScanForm() {
       });
 
       if (!response.ok) {
-        throw new Error('Er ging iets mis. Probeer het opnieuw.');
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || `Er ging iets mis (${response.status}). Probeer het opnieuw.`);
       }
 
       setIsSubmitted(true);
