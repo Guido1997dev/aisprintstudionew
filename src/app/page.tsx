@@ -455,7 +455,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-4xl">
             <div className="text-center mb-12">
-              <Badge className="mb-4">Onze Methodologie</Badge>
+              <Badge className="mb-4">De Methodologie</Badge>
               <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
                 De Happy Sprint Machine®
               </h2>
@@ -597,12 +597,12 @@ export default function Home() {
       <section className="container mx-auto px-4 py-12 md:py-16">
         <div className="mx-auto max-w-4xl">
           <div className="text-center mb-12">
-            <Badge className="mb-4">Onze Methodologie</Badge>
+            <Badge className="mb-4">De Methodologie</Badge>
             <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
               De Happy Sprint Machine®
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6">
-              Onze bewezen methode voor 100% voorspelbare software-projecten. Gebaseerd op korte sprints, 
+              De bewezen methode voor 100% voorspelbare software-projecten. Gebaseerd op korte sprints, 
               gedegen voorbereiding en uitstekend gedocumenteerde communicatie.
             </p>
             <a 
