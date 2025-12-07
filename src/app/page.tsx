@@ -800,7 +800,7 @@ export default function Home() {
       >
         <Button
           size="lg"
-          className="rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105 h-14 px-6 gap-2 bg-primary/90 hover:bg-primary backdrop-blur-sm"
+          className="rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105 h-14 px-6 gap-2 bg-primary/65 hover:bg-primary backdrop-blur-sm"
         >
           <Calendar className="h-5 w-5" />
           <span className="hidden sm:inline font-semibold">Plan Gesprek</span>
