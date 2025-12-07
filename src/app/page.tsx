@@ -22,7 +22,12 @@ import {
   Sparkles,
   Target,
   Users,
-  AlertCircle
+  AlertCircle,
+  FileText,
+  MessageSquare,
+  Mail,
+  Database,
+  Video
 } from 'lucide-react';
 
 interface ChatMessage {
@@ -140,6 +145,73 @@ export default function Home() {
     },
   ];
 
+  const useCases = [
+    {
+      icon: FileText,
+      title: 'OCR & Document Extraction',
+      description: 'Automatische data-extractie uit complexe, ongestructureerde documenten zoals contracten, facturen en juridische stukken. Van PDF naar gestructureerde database.',
+      result: 'Dagvaarding verwerkt in 30 seconden → automatisch gegenereerde samenvatting + key points extractie',
+      duration: '1-2 weken',
+      tech: ['OCR', 'Langchain', 'OpenAI', 'n8n'],
+    },
+    {
+      icon: MessageSquare,
+      title: 'Conversational AI Chatbot',
+      description: 'WhatsApp of webchat bot met gespreksgeheugen, context-awareness en intelligente lead qualification. Volledig geautomatiseerde customer journey.',
+      result: '80% van leads gekwalificeerd zonder menselijke tussenkomst, 24/7 beschikbaar',
+      duration: '2-3 weken',
+      tech: ['Langchain Agent', 'OpenAI', 'Twilio', 'n8n'],
+    },
+    {
+      icon: Mail,
+      title: 'Email Triage & Automation',
+      description: 'Automatische categorisatie, prioritering en afhandeling van inkomende emails. Intelligente routing naar de juiste persoon of afdeling.',
+      result: 'Inbox zero in 1 uur i.p.v. 4 uur, belangrijke emails krijgen direct aandacht',
+      duration: '1 week',
+      tech: ['Gmail API', 'AI Classification', 'n8n'],
+    },
+    {
+      icon: Target,
+      title: 'Lead Qualification Pipeline',
+      description: 'End-to-end lead scoring, data enrichment en automatische follow-up. State management zorgt dat geen enkele lead door de mazen glipt.',
+      result: 'Leads gescoord en verrijkt binnen 2 minuten, 40% hogere conversie door timely follow-up',
+      duration: '1-2 weken',
+      tech: ['n8n', 'Google Sheets', 'OpenAI', 'CRM'],
+    },
+    {
+      icon: Database,
+      title: 'Data Pipeline & Sync',
+      description: 'Real-time synchronisatie tussen je systemen. CRM, ERP, tools - alles altijd up-to-date zonder handmatige import/export.',
+      result: 'Data sync elke 5 minuten, 0 handmatige invoer, 100% data consistency',
+      duration: '1-2 weken',
+      tech: ['REST API', 'Webhooks', 'n8n', 'Database'],
+    },
+    {
+      icon: FileText,
+      title: 'Document Generation',
+      description: 'Automatische generatie van contracten, offertes, rapporten op basis van templates en data. Met optionele review-workflow.',
+      result: '50 contracten gegenereerd in 10 minuten, consistente formatting, 0 typfouten',
+      duration: '1-2 weken',
+      tech: ['Google Docs', 'Templates', 'n8n', 'OpenAI'],
+    },
+    {
+      icon: Video,
+      title: 'Meeting Notes & Transcription',
+      description: 'Automatische transcriptie, samenvatting en actie-items uit meetings. Gedeeld met team binnen 5 minuten na afloop.',
+      result: 'Notulen klaar voordat meeting voorbij is, action items automatisch in task manager',
+      duration: '1 week',
+      tech: ['Whisper', 'OpenAI', 'Calendar', 'n8n'],
+    },
+    {
+      icon: Zap,
+      title: 'Proactive Reminders & Nudges',
+      description: 'Intelligente herinneringen op het juiste moment. Bij no-response, abandoned flows of gemiste deadlines. Verhoogt conversie met 30%.',
+      result: '30% meer conversies door timely nudges, automated follow-up op WhatsApp/email',
+      duration: '1 week',
+      tech: ['n8n', 'Scheduler', 'Twilio', 'Logic'],
+    },
+  ];
+
   const pricing = [
     {
       name: 'Starter Sprint',
@@ -233,7 +305,7 @@ export default function Home() {
             <a href="#pricing" className="text-sm font-medium transition-colors hover:text-primary">
               Pricing
             </a>
-            <a href="https://calendar.app.google/L61mNA6Bpkeq7np48" target="_blank" rel="noopener noreferrer" className="text-sm font-medium transition-colors hover:text-primary">
+            <a href="https://calendar.app.google/hzFh9uHLzH8qaCYXA" target="_blank" rel="noopener noreferrer" className="text-sm font-medium transition-colors hover:text-primary">
               Plan Gesprek
             </a>
           </nav>
@@ -304,16 +376,10 @@ export default function Home() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/login">
+              <a href="https://calendar.app.google/hzFh9uHLzH8qaCYXA" target="_blank" rel="noopener noreferrer">
                 <Button size="lg" className="w-full sm:w-auto font-semibold">
-                  <Rocket className="mr-2 h-4 w-4" />
-                  Start Je Sprint
-                </Button>
-              </Link>
-              <a href="https://calendar.app.google/L61mNA6Bpkeq7np48" target="_blank" rel="noopener noreferrer">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto font-semibold">
                   <Sparkles className="mr-2 h-4 w-4" />
-                  Plan Kennismakingsgesprek
+                  Plan Gratis Kennismakingsgesprek
                 </Button>
               </a>
             </div>
@@ -440,6 +506,68 @@ export default function Home() {
         </div>
       </section>
 
+      {/* What We Build Section */}
+      <section className="container mx-auto px-4 py-20 md:py-32">
+        <div className="mx-auto max-w-6xl">
+          <div className="text-center mb-16">
+            <Badge className="mb-4">Concrete Oplossingen</Badge>
+            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
+              Wat we voor je bouwen
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Geen vage beloftes. Dit zijn de concrete automations die we opleveren, 
+              met echte voorbeelden uit onze sprints.
+            </p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {useCases.map((useCase, index) => {
+              const Icon = useCase.icon;
+              return (
+                <Card 
+                  key={index} 
+                  className="hover:shadow-lg hover:border-primary/50 transition-all group"
+                >
+                  <CardHeader>
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                        <Icon className="h-6 w-6 text-primary" />
+                      </div>
+                      <Badge variant="outline" className="text-xs">
+                        {useCase.duration}
+                      </Badge>
+                    </div>
+                    <CardTitle className="text-xl">{useCase.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                      {useCase.description}
+                    </p>
+                    
+                    <div className="bg-muted/50 rounded-lg p-3 border border-muted">
+                      <p className="text-xs font-semibold text-primary mb-1.5">
+                        💡 Voorbeeld resultaat:
+                      </p>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        {useCase.result}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-wrap gap-1.5">
+                      {useCase.tech.map((tech, i) => (
+                        <Badge key={i} variant="secondary" className="text-xs font-normal">
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* Why AI Sprint Studio Section */}
       <section className="border-y bg-muted/50 py-20 md:py-32">
         <div className="container mx-auto px-4">
@@ -510,13 +638,15 @@ export default function Home() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button 
-                  className="w-full" 
-                  variant={plan.highlighted ? 'default' : 'outline'}
-                  size="lg"
-                >
-                  {plan.cta}
-                </Button>
+                <a href="https://calendar.app.google/hzFh9uHLzH8qaCYXA" target="_blank" rel="noopener noreferrer" className="w-full">
+                  <Button 
+                    className="w-full" 
+                    variant={plan.highlighted ? 'default' : 'outline'}
+                    size="lg"
+                  >
+                    {plan.cta}
+                  </Button>
+                </a>
               </CardFooter>
             </Card>
           ))}
@@ -547,59 +677,6 @@ export default function Home() {
               </AccordionItem>
             ))}
           </Accordion>
-        </div>
-      </section>
-
-      {/* Booking Section */}
-      <section className="container mx-auto px-4 py-20 md:py-32">
-        <div className="mx-auto max-w-3xl">
-          <div className="rounded-lg border-2 border-primary/20 bg-gradient-to-br from-primary/5 to-transparent p-8 md:p-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
-              Klaar om te beginnen?
-            </h2>
-            <p className="mb-8 text-lg text-muted-foreground">
-              Plan een kostenloos kennismakingsgesprek met ons team. We bespreken jouw doelen,
-              uitdagingen en hoe we je kunnen helpen met AI-automation en de Happy Sprint Machine.
-            </p>
-            <a
-              href="https://calendar.app.google/L61mNA6Bpkeq7np48"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button size="lg" className="font-semibold">
-                <Sparkles className="mr-2 h-4 w-4" />
-                Plan Je Kennismakingsgesprek
-              </Button>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="border-y bg-muted/50 py-20">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
-              Klaar voor jouw AI Sprint?
-            </h2>
-            <p className="mb-8 text-lg text-muted-foreground">
-              Start vandaag nog met de Happy Sprint Machine en zie resultaten binnen weken, niet maanden.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/login">
-                <Button size="lg" className="font-semibold w-full sm:w-auto">
-                  <Rocket className="mr-2 h-4 w-4" />
-                  Start Je Sprint Nu
-                </Button>
-              </Link>
-              <Link href="/about">
-                <Button size="lg" variant="outline" className="w-full sm:w-auto">
-                  <Users className="mr-2 h-4 w-4" />
-                  Ontmoet Het Team
-                </Button>
-              </Link>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -639,7 +716,7 @@ export default function Home() {
               <h3 className="mb-4 text-sm font-semibold">Contact</h3>
               <ul className="space-y-2 text-sm">
                 <li><a href="mailto:info@aisprintstudio.nl" className="text-muted-foreground hover:text-foreground">info@aisprintstudio.nl</a></li>
-                <li><a href="https://calendar.app.google/L61mNA6Bpkeq7np48" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">Plan een Gesprek</a></li>
+                <li><a href="https://calendar.app.google/hzFh9uHLzH8qaCYXA" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">Plan een Gesprek</a></li>
                 <li className="text-muted-foreground">Nederland</li>
               </ul>
             </div>

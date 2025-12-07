@@ -109,19 +109,67 @@ Analyzing and improving the home page to make it more concrete and conversion-fo
 - Installed shadcn Textarea component: `npx shadcn@latest add textarea`
 - Quick Scan form now builds without errors
 
+#### ✅ COMPLETED - Stap 4: Cleanup & Use Cases Section
+
+**CTA Cleanup (Minimalistisch & Professioneel):**
+- Removed duplicate "Booking Section" (Klaar om te beginnen?)
+- Removed duplicate "CTA Section" (Klaar voor jouw AI Sprint?)
+- Result: Clean flow, no repetition, professional
+
+**Use Cases Section Added:**
+- Location: Between Features and "Why AI Sprint Studio"
+- 8 concrete use cases in 3-column grid
+- Medium detail level with:
+  - Icon + Duration badge
+  - Clear title and description
+  - Example result box (highlighted)
+  - Tech stack badges
+  - No CTAs per card (clean design)
+
+**Use Cases (based on real n8n work):**
+1. OCR & Document Extraction (juridische documenten)
+2. Conversational AI Chatbot (WhatsApp lead intake)
+3. Email Triage & Automation
+4. Lead Qualification Pipeline (state management)
+5. Data Pipeline & Sync
+6. Document Generation
+7. Meeting Notes & Transcription
+8. Proactive Reminders & Nudges
+
+**Why This Works:**
+- Based on actual client work (Unvolt, juridische docs)
+- Specific, not vague
+- Shows tech stack (transparency)
+- Realistic timeframes
+- Concrete results
+
 ### Next Steps
-1. ✅ Stap 1-3 COMPLETED - Ready for review
-2. 🎨 Discuss UI design for use cases section (WAITING FOR USER INPUT)
-3. Then implement use cases section (Stap 4)
-4. Then implement social proof/testimonials (Stap 5-6)
-5. Polish and test
+1. ✅ Stap 1-4 COMPLETED
+2. Consider: Social proof/testimonials (when you have real quotes)
+3. Consider: FAQ expansion
+4. Ready for review and testing
 
 ### Summary - What's Live Now
 ✅ New hero copy: "Stop met praten over AI. Start met bouwen."
 ✅ Statistics bar: 50+ Sprints, 25+ Klanten, 300+ Workflows, 95% Tevredenheid
 ✅ Quick Scan lead gen form with full backend
+✅ Clean CTA strategy (no duplicates)
+✅ 8 concrete use cases showing exactly what we build
 ✅ API endpoint ready for submissions
 ✅ Database schema ready (needs to be run in Supabase)
+
+**Page Structure (Minimalist):**
+Hero → Stats → Quick Scan → Happy Sprint → Features → **Use Cases** → Why → Pricing → FAQ → Footer
+
+#### ✅ COMPLETED - Calendar Links Update
+**Changed all CTAs to Google Calendar:**
+- Updated calendar link: `https://calendar.app.google/hzFh9uHLzH8qaCYXA`
+- Hero CTA: Simplified to 1 primary button "Plan Gratis Kennismakingsgesprek"
+- All pricing buttons now link to calendar
+- Header "Plan Gesprek" link updated
+- Footer contact link updated
+
+**Result:** Clear, single conversion goal - book a meeting
 
 ---
 
