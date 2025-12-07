@@ -48,6 +48,7 @@ export default function Home() {
   const [isMounted, setIsMounted] = useState(false);
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [showStats, setShowStats] = useState(false);
+  const [showFloatingButton, setShowFloatingButton] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
@@ -140,6 +141,29 @@ export default function Home() {
     return () => {
       if (statsRef.current) {
         observer.unobserve(statsRef.current);
+      }
+    };
+  }, []);
+
+  // Intersection Observer for floating button visibility
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // Button verschijnt wanneer hero sectie NIET meer zichtbaar is
+          setShowFloatingButton(!entry.isIntersecting);
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    if (heroSectionRef.current) {
+      observer.observe(heroSectionRef.current);
+    }
+
+    return () => {
+      if (heroSectionRef.current) {
+        observer.unobserve(heroSectionRef.current);
       }
     };
   }, []);
@@ -832,7 +856,11 @@ export default function Home() {
         href="https://calendar.app.google/hzFh9uHLzH8qaCYXA"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50"
+        className={`fixed bottom-6 right-6 z-50 transition-all duration-300 ease-out ${
+          showFloatingButton
+            ? 'opacity-100 translate-y-0 pointer-events-auto'
+            : 'opacity-0 translate-y-4 pointer-events-none'
+        }`}
       >
         <Button
           size="lg"
