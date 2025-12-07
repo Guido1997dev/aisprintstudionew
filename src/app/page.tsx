@@ -395,15 +395,15 @@ export default function Home() {
       <section className="container mx-auto px-4 py-12 border-b">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto text-center">
           <div className="animate-fade-in-up" style={{ animationDelay: '0ms' }}>
-            <div className="text-4xl md:text-5xl font-bold text-primary mb-2">50+</div>
+            <div className="text-4xl md:text-5xl font-bold text-primary mb-2">12</div>
             <div className="text-sm text-muted-foreground">Sprints Voltooid</div>
           </div>
           <div className="animate-fade-in-up" style={{ animationDelay: '100ms' }}>
-            <div className="text-4xl md:text-5xl font-bold text-primary mb-2">25+</div>
+            <div className="text-4xl md:text-5xl font-bold text-primary mb-2">6+</div>
             <div className="text-sm text-muted-foreground">Tevreden Klanten</div>
           </div>
           <div className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-            <div className="text-4xl md:text-5xl font-bold text-primary mb-2">300+</div>
+            <div className="text-4xl md:text-5xl font-bold text-primary mb-2">24+</div>
             <div className="text-sm text-muted-foreground">Workflows Live</div>
           </div>
           <div className="animate-fade-in-up" style={{ animationDelay: '300ms' }}>
