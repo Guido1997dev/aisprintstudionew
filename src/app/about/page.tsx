@@ -69,24 +69,21 @@ export default function AboutPage() {
           </Link>
           
           <nav className="hidden md:flex items-center space-x-6">
-            <Link href="/dashboard" className="text-sm font-medium transition-colors hover:text-primary">
-              Dashboard
-            </Link>
             <Link href="/about" className="text-sm font-medium text-primary">
               Over Ons
             </Link>
-            <Link href="/portfolio" className="text-sm font-medium transition-colors hover:text-primary">
-              Portfolio
-            </Link>
-            <Link href="/#pricing" className="text-sm font-medium transition-colors hover:text-primary">
+            <a href="/#pricing" className="text-sm font-medium transition-colors hover:text-primary">
               Pricing
-            </Link>
+            </a>
+            <a href="https://calendar.app.google/hzFh9uHLzH8qaCYXA" target="_blank" rel="noopener noreferrer" className="text-sm font-medium transition-colors hover:text-primary">
+              Plan Gesprek
+            </a>
           </nav>
 
           <div className="flex items-center gap-4">
             <ThemeToggle />
             <Link href="/dashboard">
-              <Button size="sm">Start Sprint</Button>
+              <Button size="sm">Dashboard</Button>
             </Link>
           </div>
         </div>
@@ -321,15 +318,16 @@ export default function AboutPage() {
               <ul className="space-y-2 text-sm">
                 <li><Link href="/dashboard" className="text-muted-foreground hover:text-foreground">Dashboard</Link></li>
                 <li><Link href="/about" className="text-muted-foreground hover:text-foreground">Over Ons</Link></li>
-                <li><Link href="/portfolio" className="text-muted-foreground hover:text-foreground">Portfolio</Link></li>
+                <li><a href="/#pricing" className="text-muted-foreground hover:text-foreground">Pricing</a></li>
               </ul>
             </div>
             
             <div>
               <h3 className="mb-4 text-sm font-semibold">Resources</h3>
               <ul className="space-y-2 text-sm">
-                <li><a href="https://docs.n8n.io" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">n8n Docs</a></li>
-                <li><Link href="/about" className="text-muted-foreground hover:text-foreground">Happy Sprint Machine</Link></li>
+                <li><a href="https://docs.n8n.io" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">n8n Documentatie</a></li>
+                <li><Link href="/dashboard" className="text-muted-foreground hover:text-foreground">Happy Sprint Machine</Link></li>
+                <li><Link href="/about" className="text-muted-foreground hover:text-foreground">Ons Team</Link></li>
               </ul>
             </div>
             
@@ -337,6 +335,7 @@ export default function AboutPage() {
               <h3 className="mb-4 text-sm font-semibold">Contact</h3>
               <ul className="space-y-2 text-sm">
                 <li><a href="mailto:info@aisprintstudio.nl" className="text-muted-foreground hover:text-foreground">info@aisprintstudio.nl</a></li>
+                <li><a href="https://calendar.app.google/hzFh9uHLzH8qaCYXA" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">Plan een Gesprek</a></li>
                 <li className="text-muted-foreground">Nederland</li>
               </ul>
             </div>
