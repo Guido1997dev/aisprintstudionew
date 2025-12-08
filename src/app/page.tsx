@@ -446,7 +446,7 @@ export default function Home() {
               <PromptBox className="w-full" onMessage={handleMessage} />
             </div>
 
-            <p className="mx-auto mt-12 mb-8 max-w-2xl text-lg text-muted-foreground">
+            <p className="mx-auto mt-6 mb-8 max-w-2xl text-lg text-muted-foreground">
               We bouwen werkende AI-oplossingen in 1-4 weken. Geen maandenlange projecten, 
               geen vage beloftes. Concrete automation die direct waarde levert.
             </p>
