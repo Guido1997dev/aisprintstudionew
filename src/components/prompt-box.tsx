@@ -334,7 +334,9 @@ export const PromptBox = React.forwardRef<
 
     setIsLoading(true);
     try {
-      const webhookUrl = typeof window !== 'undefined' ? localStorage.getItem('chatbox_webhook_url') : null;
+      // Get webhook URL from localStorage, or use default fallback for hero section chat
+      const storedWebhookUrl = typeof window !== 'undefined' ? localStorage.getItem('chatbox_webhook_url') : null;
+      const webhookUrl = storedWebhookUrl || 'https://guidocroon.com/n8n/webhook/e5766a0b-e8ad-46ab-a284-34b9dbf2583c';
 
       // Fetch RAG context if project is selected
       let ragContext = null;

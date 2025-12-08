@@ -238,4 +238,104 @@ Het formulier op de homepage kan nu submissions opslaan in de database. Error ha
 
 ---
 
+## 2025-01-XX: Hero Chat Webhook Fix
+
+### Probleem
+De chat in de hero sectie werkte niet omdat er geen webhook URL was geconfigureerd. De webhook URL werd alleen uit localStorage gehaald, maar er was geen fallback.
+
+### Oplossing
+**Aangepast:** `src/components/prompt-box.tsx`
+- Toegevoegd: Fallback webhook URL voor hero sectie chat
+- Webhook URL: `https://guidocroon.com/n8n/webhook/e5766a0b-e8ad-46ab-a284-34b9dbf2583c`
+- Logica: Gebruikt eerst localStorage waarde, anders gebruikt de default webhook URL
+- Resultaat: Hero chat werkt nu altijd, ook zonder localStorage configuratie
+
+**Code wijziging:**
+```typescript
+// Voor: Alleen localStorage
+const webhookUrl = typeof window !== 'undefined' ? localStorage.getItem('chatbox_webhook_url') : null;
+
+// Na: localStorage met fallback
+const storedWebhookUrl = typeof window !== 'undefined' ? localStorage.getItem('chatbox_webhook_url') : null;
+const webhookUrl = storedWebhookUrl || 'https://guidocroon.com/n8n/webhook/e5766a0b-e8ad-46ab-a284-34b9dbf2583c';
+```
+
+**Status:** ✅ Hero chat gebruikt nu de juiste webhook URL
+
+---
+
+## 2025-01-XX: Vercel Environment Variables Fix
+
+### Probleem
+- Quick Scan formulier stuurde geen emails meer na Vercel deployment
+- Dashboard login werkte niet na Vercel deployment
+- Environment variables stonden in `.env.local` maar niet in Vercel dashboard
+
+### Oorzaak
+`.env.local` wordt niet gebruikt in Vercel productie. Alle environment variables moeten handmatig worden toegevoegd in het Vercel dashboard.
+
+### Oplossing
+**Aangemaakt:** `VERCEL_ENV_VARIABLES.md`
+- Complete lijst van alle benodigde environment variables voor Vercel
+- Stap-voor-stap instructies voor setup
+- Troubleshooting guide
+- Checklist voor verificatie
+
+**Benodigde Environment Variables voor Vercel:**
+
+1. **Supabase:**
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+
+2. **Email (Resend):**
+   - `RESEND_API_KEY` (voor Quick Scan emails)
+
+3. **n8n API:**
+   - `N8N_API_URL`
+   - `N8N_API_KEY`
+   - `NEXT_PUBLIC_N8N_API_URL`
+   - `NEXT_PUBLIC_N8N_API_KEY`
+
+4. **NextAuth (Login):**
+   - `GOOGLE_CLIENT_ID`
+   - `GOOGLE_CLIENT_SECRET`
+   - `NEXTAUTH_URL`
+   - `NEXTAUTH_SECRET`
+
+5. **Optioneel:**
+   - `OPENAI_API_KEY` (voor RAG)
+   - `N8N_QUICK_SCAN_WEBHOOK_URL` (voor Quick Scan webhook)
+
+**Actie vereist:**
+1. Ga naar Vercel Dashboard → Project Settings → Environment Variables
+2. Voeg alle bovenstaande variables toe
+3. Selecteer voor alle: Production, Preview, Development
+4. Redeploy de applicatie
+
+**Status:** ⚠️ Wacht op gebruiker om environment variables toe te voegen in Vercel en redeploy uit te voeren
+
+---
+
+## 2025-01-XX: Hero Section Padding Update
+
+### Wijziging
+**Aangepast:** `src/app/page.tsx`
+- Toegevoegd: Meer padding tussen chatbox en tekst eronder
+- Verandering: `mt-12` toegevoegd aan de paragraaf onder de chatbox
+- Resultaat: Betere visuele spacing tussen chatbox en beschrijvende tekst
+
+**Code wijziging:**
+```typescript
+// Voor: mb-8 alleen
+<p className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground">
+
+// Na: mt-12 mb-8 voor meer ruimte
+<p className="mx-auto mt-12 mb-8 max-w-2xl text-lg text-muted-foreground">
+```
+
+**Status:** ✅ Padding aangepast, klaar voor deploy
+
+---
+
 
