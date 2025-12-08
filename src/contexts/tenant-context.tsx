@@ -37,10 +37,11 @@ export function TenantProvider({ children }: { children: React.ReactNode }) {
         setIsLoading(true);
         setError(null);
 
+        const companyName = user.company || 'Default Company';
         const mockCompany: Company = {
-          id: `company-${user.company}`,
-          name: user.company,
-          slug: user.company.toLowerCase().replace(/\s+/g, '-'),
+          id: `company-${companyName}`,
+          name: companyName,
+          slug: companyName.toLowerCase().replace(/\s+/g, '-'),
           subscription_tier: 'free',
           subscription_start: null,
           subscription_end: null,

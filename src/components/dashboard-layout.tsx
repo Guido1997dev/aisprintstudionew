@@ -19,7 +19,8 @@ export function DashboardLayout({ children, title = 'Dashboard' }: DashboardLayo
   const { user, logout } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const getInitials = (name: string) => {
+  const getInitials = (name: string | null | undefined) => {
+    if (!name) return 'U';
     return name
       .split(' ')
       .map((n) => n[0])

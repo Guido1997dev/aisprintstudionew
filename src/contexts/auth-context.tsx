@@ -1,7 +1,7 @@
 'use client';
 
-import React, { createContext, useContext } from 'react';
-import { useSession } from 'next-auth/react';
+import React, { createContext, useContext, useCallback } from 'react';
+import { useSession, signOut } from 'next-auth/react';
 
 interface User {
   id?: string;
@@ -14,6 +14,7 @@ interface User {
 interface AuthContextType {
   user: User | null;
   isLoading: boolean;
+  logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -22,9 +23,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const user = session?.user ? { ...session.user, company: (session.user as any).company, role: (session.user as any).role } as User : null;
+  
+  const logout = useCallback(() => {
+    signOut({ callbackUrl: '/login' });
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ user, isLoading: status === 'loading' }}>
+    <AuthContext.Provider value={{ user, isLoading: status === 'loading', logout }}>
       {children}
     </AuthContext.Provider>
   );

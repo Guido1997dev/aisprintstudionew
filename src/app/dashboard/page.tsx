@@ -46,7 +46,7 @@ export default function DashboardPage() {
   const [error, setError] = useState<string | null>(null);
   
   // Check if user has company-specific workflows
-  const hasCompanyWorkflows = user && getCompanyWorkflows(user.company).length > 0;
+  const hasCompanyWorkflows = user && user.company && getCompanyWorkflows(user.company).length > 0;
 
   useEffect(() => {
     loadData();
@@ -177,7 +177,7 @@ export default function DashboardPage() {
   );
 
   // If user has company-specific workflows, show the company dashboard
-  if (hasCompanyWorkflows && user && user.company !== 'AI Sprint Studio') {
+  if (hasCompanyWorkflows && user && user.company && user.company !== 'AI Sprint Studio') {
     return (
       <ProtectedRoute>
         <DashboardLayout title={`${user.company} Dashboard`}>
