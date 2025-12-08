@@ -284,7 +284,7 @@ export default function Home() {
   const pricing = [
     {
       name: 'Starter Sprint',
-      price: '€2.500',
+      price: '€1.500',
       description: 'Voor eerste verkenning',
       features: [
         '1 Week Sprint',
@@ -298,7 +298,7 @@ export default function Home() {
     },
     {
       name: 'Growth Sprint',
-      price: '€7.500',
+      price: '€4.500',
       description: 'Voor schaalbare groei',
       features: [
         '4 Weken Sprint',
@@ -481,7 +481,7 @@ export default function Home() {
             <div className="text-sm text-muted-foreground">Workflows Live</div>
           </div>
           <div style={{ transitionDelay: '300ms' }}>
-            <div className="text-4xl md:text-5xl font-bold text-primary mb-2">95%</div>
+            <div className="text-4xl md:text-5xl font-bold text-primary mb-2">100%</div>
             <div className="text-sm text-muted-foreground">Tevredenheid</div>
           </div>
         </div>
@@ -693,6 +693,7 @@ export default function Home() {
                 <CardTitle className="text-2xl">{plan.name}</CardTitle>
                 <CardDescription>{plan.description}</CardDescription>
                 <div className="mt-4">
+                  {plan.price !== 'Op maat' && <span className="text-sm text-muted-foreground mr-1">Vanaf</span>}
                   <span className="text-4xl font-bold">{plan.price}</span>
                   {plan.price !== 'Op maat' && <span className="text-muted-foreground"> / sprint</span>}
                 </div>
