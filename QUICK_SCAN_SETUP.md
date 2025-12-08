@@ -91,12 +91,28 @@ RESEND_API_KEY=re_xxxxxxxxxxxxx
 - From address: `info@aisprintstudio.com` (domain moet geverifieerd zijn in Resend)
 - Reply-to: `info@aisprintstudio.com` (klanten kunnen hierop reageren)
 
-**Belangrijk:** Je hoeft GEEN email account aan te maken voor `info@aisprintstudio.com`! Resend verstuurt emails namens dit adres via hun servers. Wanneer iemand reageert op `info@aisprintstudio.com`, kun je deze emails ontvangen via:
-1. **Resend Inbound Email** (beta feature) - emails worden doorgestuurd naar een webhook
-2. **Email forwarding** - stuur replies door naar je persoonlijke email (gtcroon@gmail.com)
-3. **n8n workflow** - gebruik een webhook om replies te verwerken
+**Belangrijk:** Je hoeft GEEN email account aan te maken voor `info@aisprintstudio.com`! Resend verstuurt emails namens dit adres via hun servers.
 
-Voor nu worden replies naar `info@aisprintstudio.com` niet automatisch doorgestuurd. Je kunt dit later instellen via Resend Inbound Email of een forwarding service.
+**Reply-To Setup:**
+- **Huidige configuratie:** Replies gaan direct naar `gtcroon@gmail.com` (tijdelijke oplossing)
+- **Later:** Stel email forwarding in zodat replies naar `info@aisprintstudio.com` automatisch worden doorgestuurd naar je persoonlijke email
+
+**Email Forwarding Instellen (optioneel, later):**
+
+**Optie 1: Cloudflare Email Routing (aanbevolen, gratis)**
+1. Ga naar je Cloudflare dashboard
+2. Selecteer je domain `aisprintstudio.com`
+3. Ga naar "Email" → "Email Routing"
+4. Maak een routing regel: `info@aisprintstudio.com` → `gtcroon@gmail.com`
+5. Voeg de MX records toe die Cloudflare geeft
+6. Update dan de `replyTo` in de code terug naar `info@aisprintstudio.com`
+
+**Optie 2: Resend Inbound Email (beta)**
+- Gebruik Resend's inbound email feature met webhook forwarding
+- Check Resend dashboard voor beschikbaarheid
+
+**Optie 3: n8n Workflow**
+- Maak een n8n workflow die emails ontvangt en verwerkt
 
 **Voor development/testing:**
 - Je kunt ook de Resend test domain gebruiken: `onboarding@resend.dev`

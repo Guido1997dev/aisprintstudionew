@@ -180,7 +180,7 @@ export async function POST(request: NextRequest) {
         const resend = new Resend(resendApiKey);
         await resend.emails.send({
           from: 'AI Sprint Studio <info@aisprintstudio.com>',
-          replyTo: 'info@aisprintstudio.com',
+          replyTo: 'gtcroon@gmail.com',
           to: body.email,
           subject: 'Bedankt voor je Quick Scan aanvraag! 🎯',
           html: `
