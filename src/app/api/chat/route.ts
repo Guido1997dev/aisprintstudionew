@@ -19,6 +19,7 @@ export async function POST(request: Request) {
       // Format RAG context for easy consumption by AI workflows
       context: payload.ragContext
         ? {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             sources: payload.ragContext.map((ctx: any) => ({
               document: ctx.document_name,
               project: ctx.project_name,

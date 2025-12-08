@@ -35,6 +35,7 @@ export async function POST(request: NextRequest) {
 
     // Transform results to RAGContext format
     const ragContexts: RAGContext[] = await Promise.all(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (chunks || []).map(async (chunk: any) => {
         // Get document and project info
         const { data: document } = await supabaseAdmin
@@ -130,6 +131,7 @@ async function manualVectorSearch(
 
     // Transform to RAGContext format
     const ragContexts: RAGContext[] = await Promise.all(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       chunksWithSimilarity.map(async (chunk: any) => {
         const { data: document } = await supabaseAdmin
           .from('documents')

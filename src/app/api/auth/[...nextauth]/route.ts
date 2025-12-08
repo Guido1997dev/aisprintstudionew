@@ -30,14 +30,18 @@ const handler = NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         token.company = (user as any).company || 'Default Company';
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         token.role = (user as any).role || 'user';
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (session.user as any).company = token.company;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (session.user as any).role = token.role;
       }
       return session;

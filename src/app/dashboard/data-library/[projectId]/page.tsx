@@ -203,7 +203,7 @@ export default function ProjectDetailPage() {
             <AlertCircle className="h-4 w-4" />
             <AlertTitle>Project not found</AlertTitle>
             <AlertDescription>
-              The project you're looking for doesn't exist or you don't have access to it.
+              The project you&apos;re looking for doesn&apos;t exist or you don&apos;t have access to it.
             </AlertDescription>
           </Alert>
         </DashboardLayout>

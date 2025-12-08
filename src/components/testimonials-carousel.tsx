@@ -75,7 +75,7 @@ export function TestimonialsCarousel() {
       <div className="text-center px-4">
         {/* Quote - Smaller and more subtle */}
         <p className="text-base md:text-lg text-muted-foreground/90 italic mb-4 leading-relaxed">
-          "{currentTestimonial.quote}"
+          &quot;{currentTestimonial.quote}&quot;
         </p>
 
         {/* Author - Inline and compact */}

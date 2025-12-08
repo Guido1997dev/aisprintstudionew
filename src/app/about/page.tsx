@@ -72,9 +72,9 @@ export default function AboutPage() {
             <Link href="/about" className="text-sm font-medium text-primary">
               Over Ons
             </Link>
-            <a href="/#pricing" className="text-sm font-medium transition-colors hover:text-primary">
+            <Link href="/#pricing" className="text-sm font-medium transition-colors hover:text-primary">
               Pricing
-            </a>
+            </Link>
             <a href="https://calendar.app.google/hzFh9uHLzH8qaCYXA" target="_blank" rel="noopener noreferrer" className="text-sm font-medium transition-colors hover:text-primary">
               Plan Gesprek
             </a>
@@ -318,7 +318,7 @@ export default function AboutPage() {
               <ul className="space-y-2 text-sm">
                 <li><Link href="/dashboard" className="text-muted-foreground hover:text-foreground">Dashboard</Link></li>
                 <li><Link href="/about" className="text-muted-foreground hover:text-foreground">Over Ons</Link></li>
-                <li><a href="/#pricing" className="text-muted-foreground hover:text-foreground">Pricing</a></li>
+                <li><Link href="/#pricing" className="text-muted-foreground hover:text-foreground">Pricing</Link></li>
               </ul>
             </div>
             

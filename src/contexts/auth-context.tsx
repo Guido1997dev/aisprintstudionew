@@ -20,6 +20,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const user = session?.user ? { ...session.user, company: (session.user as any).company, role: (session.user as any).role } as User : null;
 
   return (
