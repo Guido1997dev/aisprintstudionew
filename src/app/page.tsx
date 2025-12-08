@@ -575,7 +575,11 @@ export default function Home() {
               return (
                 <Card 
                   key={index} 
-                  className="hover:shadow-lg hover:border-primary/50 transition-all group"
+                  className={`hover:shadow-lg hover:border-primary/50 transition-all group ${
+                    index % 2 === 0 
+                      ? 'bg-gray-100 dark:bg-gray-900' 
+                      : 'bg-white dark:bg-gray-800'
+                  }`}
                 >
                   <CardHeader>
                     <div className="flex items-start justify-between mb-4">
@@ -685,7 +689,9 @@ export default function Home() {
               className={`flex flex-col transition-all hover:shadow-xl hover:-translate-y-2 animate-fade-in-up ${
                 plan.highlighted
                   ? 'border-primary shadow-lg shadow-primary/20 scale-105 animate-glow'
-                  : ''
+                  : index % 2 === 0 
+                    ? 'bg-gray-100 dark:bg-gray-900' 
+                    : 'bg-white dark:bg-gray-800'
               }`}
               style={{ animationDelay: `${index * 150}ms` }}
             >
