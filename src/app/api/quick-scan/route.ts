@@ -93,7 +93,8 @@ export async function POST(request: NextRequest) {
       try {
         const resend = new Resend(resendApiKey);
         await resend.emails.send({
-          from: 'AI Sprint Studio <noreply@aisprintstudio.com>',
+          from: 'AI Sprint Studio <info@aisprintstudio.com>',
+          replyTo: 'info@aisprintstudio.com',
           to: 'gtcroon@gmail.com',
           subject: `Nieuwe Quick Scan Aanvraag: ${body.name}`,
           html: `
@@ -102,21 +103,25 @@ export async function POST(request: NextRequest) {
               <head>
                 <meta charset="utf-8">
                 <style>
-                  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
-                  .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-                  .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 8px 8px 0 0; }
-                  .content { background: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px; }
-                  .info-box { background: white; padding: 20px; border-radius: 6px; margin: 15px 0; border-left: 4px solid #667eea; }
-                  .label { font-weight: 600; color: #667eea; margin-bottom: 5px; }
-                  .value { color: #1f2937; }
-                  .footer { text-align: center; margin-top: 30px; color: #6b7280; font-size: 14px; }
+                  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #303034; margin: 0; padding: 0; }
+                  .container { max-width: 600px; margin: 0 auto; background: #E4DAD0; }
+                  .header { background: #DB4A2B; color: white; padding: 30px; text-align: center; }
+                  .content { background: #E4DAD0; padding: 30px; }
+                  .info-box { background: white; padding: 20px; border-radius: 6px; margin: 15px 0; border-left: 4px solid #DB4A2B; }
+                  .label { font-weight: 600; color: #DB4A2B; margin-bottom: 5px; font-size: 14px; }
+                  .value { color: #303034; }
+                  .footer { text-align: center; margin-top: 40px; padding-top: 30px; border-top: 1px solid #D4CACA; }
+                  .logo { margin: 20px 0; }
+                  .logo-text { font-size: 18px; font-weight: bold; color: #303034; }
+                  .logo-text .primary { color: #DB4A2B; }
+                  .logo-text .italic { font-style: italic; font-weight: normal; }
                 </style>
               </head>
               <body>
                 <div class="container">
                   <div class="header">
-                    <h1 style="margin: 0;">🎯 Nieuwe Quick Scan Aanvraag</h1>
-                    <p style="margin: 10px 0 0 0; opacity: 0.9;">Er is een nieuwe aanvraag binnengekomen</p>
+                    <h1 style="margin: 0; font-size: 24px;">🎯 Nieuwe Quick Scan Aanvraag</h1>
+                    <p style="margin: 10px 0 0 0; opacity: 0.9; font-size: 14px;">Er is een nieuwe aanvraag binnengekomen</p>
                   </div>
                   <div class="content">
                     <div class="info-box">
@@ -125,11 +130,11 @@ export async function POST(request: NextRequest) {
                     </div>
                     <div class="info-box">
                       <div class="label">Email</div>
-                      <div class="value"><a href="mailto:${body.email}">${body.email}</a></div>
+                      <div class="value"><a href="mailto:${body.email}" style="color: #DB4A2B;">${body.email}</a></div>
                     </div>
                     <div class="info-box">
                       <div class="label">Bedrijfswebsite</div>
-                      <div class="value"><a href="${body.website}" target="_blank">${body.website}</a></div>
+                      <div class="value"><a href="${body.website}" target="_blank" style="color: #DB4A2B;">${body.website}</a></div>
                     </div>
                     ${body.challenge ? `
                     <div class="info-box">
@@ -139,10 +144,20 @@ export async function POST(request: NextRequest) {
                     ` : ''}
                     <div class="info-box">
                       <div class="label">Submission ID</div>
-                      <div class="value" style="font-family: monospace; font-size: 12px;">${data.id}</div>
+                      <div class="value" style="font-family: monospace; font-size: 12px; color: #6B6568;">${data.id}</div>
                     </div>
                     <div class="footer">
-                      <p>Verzonden op ${new Date().toLocaleString('nl-NL')}</p>
+                      <div class="logo">
+                        <div class="logo-text">
+                          <span>AI</span><span class="primary">SPRINT</span><span class="italic">studio</span>
+                        </div>
+                      </div>
+                      <p style="color: #6B6568; font-size: 12px; margin: 10px 0;">
+                        <a href="https://aisprintstudio.com" style="color: #DB4A2B; text-decoration: none;">aisprintstudio.com</a>
+                      </p>
+                      <p style="color: #6B6568; font-size: 12px; margin: 5px 0;">
+                        Verzonden op ${new Date().toLocaleString('nl-NL')}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -164,7 +179,8 @@ export async function POST(request: NextRequest) {
       try {
         const resend = new Resend(resendApiKey);
         await resend.emails.send({
-          from: 'AI Sprint Studio <noreply@aisprintstudio.com>',
+          from: 'AI Sprint Studio <info@aisprintstudio.com>',
+          replyTo: 'info@aisprintstudio.com',
           to: body.email,
           subject: 'Bedankt voor je Quick Scan aanvraag! 🎯',
           html: `
@@ -173,43 +189,56 @@ export async function POST(request: NextRequest) {
               <head>
                 <meta charset="utf-8">
                 <style>
-                  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
-                  .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-                  .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 8px 8px 0 0; text-align: center; }
-                  .content { background: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px; }
-                  .highlight-box { background: white; padding: 20px; border-radius: 6px; margin: 20px 0; border-left: 4px solid #667eea; }
-                  .footer { text-align: center; margin-top: 30px; color: #6b7280; font-size: 14px; }
+                  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #303034; margin: 0; padding: 0; }
+                  .container { max-width: 600px; margin: 0 auto; background: #E4DAD0; }
+                  .header { background: #DB4A2B; color: white; padding: 30px; text-align: center; }
+                  .content { background: #E4DAD0; padding: 30px; }
+                  .highlight-box { background: white; padding: 20px; border-radius: 6px; margin: 20px 0; border-left: 4px solid #DB4A2B; }
+                  .footer { text-align: center; margin-top: 40px; padding-top: 30px; border-top: 1px solid #D4CACA; }
+                  .logo { margin: 20px 0; }
+                  .logo-text { font-size: 18px; font-weight: bold; color: #303034; }
+                  .logo-text .primary { color: #DB4A2B; }
+                  .logo-text .italic { font-style: italic; font-weight: normal; }
+                  a { color: #DB4A2B; text-decoration: none; }
+                  a:hover { text-decoration: underline; }
                 </style>
               </head>
               <body>
                 <div class="container">
                   <div class="header">
-                    <h1 style="margin: 0;">🎉 Bedankt, ${body.name}!</h1>
-                    <p style="margin: 10px 0 0 0; opacity: 0.9;">Je Quick Scan aanvraag is ontvangen</p>
+                    <h1 style="margin: 0; font-size: 24px;">🎉 Bedankt, ${body.name}!</h1>
+                    <p style="margin: 10px 0 0 0; opacity: 0.9; font-size: 14px;">Je Quick Scan aanvraag is ontvangen</p>
                   </div>
                   <div class="content">
-                    <p>Hoi ${body.name},</p>
+                    <p style="margin-top: 0;">Hoi ${body.name},</p>
                     <p>Bedankt voor je interesse in AI automation voor <strong>${body.website}</strong>!</p>
                     
                     <div class="highlight-box">
-                      <h3 style="margin-top: 0; color: #667eea;">Wat gebeurt er nu?</h3>
-                      <p>We gaan direct aan de slag met het analyseren van je website en bedrijf. Binnen <strong>48 uur</strong> ontvang je van ons:</p>
-                      <ul>
-                        <li>✅ 3-5 concrete AI automation mogelijkheden specifiek voor jouw bedrijf</li>
-                        <li>✅ Inschatting van tijdsbesparing en ROI</li>
+                      <h3 style="margin-top: 0; color: #DB4A2B; font-size: 18px;">Wat gebeurt er nu?</h3>
+                      <p style="margin-bottom: 10px;">We gaan direct aan de slag met het analyseren van je website en bedrijf. Binnen <strong>48 uur</strong> ontvang je van ons:</p>
+                      <ul style="margin: 0; padding-left: 20px;">
+                        <li style="margin-bottom: 8px;">✅ 3-5 concrete AI automation mogelijkheden specifiek voor jouw bedrijf</li>
+                        <li style="margin-bottom: 8px;">✅ Inschatting van tijdsbesparing en ROI</li>
                         <li>✅ Praktische voorbeelden van hoe dit eruit ziet</li>
                       </ul>
                     </div>
 
                     <p>Geen verplichtingen, geen salesgesprek - gewoon waardevolle inzichten die je direct kunt gebruiken.</p>
                     
-                    <p>Heb je vragen? Stuur gerust een email naar <a href="mailto:info@aisprintstudio.nl">info@aisprintstudio.nl</a></p>
+                    <p>Heb je vragen? Stuur gerust een email naar <a href="mailto:info@aisprintstudio.com">info@aisprintstudio.com</a></p>
                     
                     <p>Met vriendelijke groet,<br>
                     <strong>Het AI Sprint Studio Team</strong></p>
                     
                     <div class="footer">
-                      <p>AI Sprint Studio | <a href="https://aisprintstudio.nl">aisprintstudio.nl</a></p>
+                      <div class="logo">
+                        <div class="logo-text">
+                          <span>AI</span><span class="primary">SPRINT</span><span class="italic">studio</span>
+                        </div>
+                      </div>
+                      <p style="color: #6B6568; font-size: 12px; margin: 10px 0;">
+                        <a href="https://aisprintstudio.com" style="color: #DB4A2B;">aisprintstudio.com</a>
+                      </p>
                     </div>
                   </div>
                 </div>

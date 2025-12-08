@@ -88,7 +88,15 @@ RESEND_API_KEY=re_xxxxxxxxxxxxx
 
 **Email adressen:**
 - Team notificatie: `gtcroon@gmail.com` (hardcoded in code)
-- From address: `noreply@aisprintstudio.com` (domain moet geverifieerd zijn in Resend)
+- From address: `info@aisprintstudio.com` (domain moet geverifieerd zijn in Resend)
+- Reply-to: `info@aisprintstudio.com` (klanten kunnen hierop reageren)
+
+**Belangrijk:** Je hoeft GEEN email account aan te maken voor `info@aisprintstudio.com`! Resend verstuurt emails namens dit adres via hun servers. Wanneer iemand reageert op `info@aisprintstudio.com`, kun je deze emails ontvangen via:
+1. **Resend Inbound Email** (beta feature) - emails worden doorgestuurd naar een webhook
+2. **Email forwarding** - stuur replies door naar je persoonlijke email (gtcroon@gmail.com)
+3. **n8n workflow** - gebruik een webhook om replies te verwerken
+
+Voor nu worden replies naar `info@aisprintstudio.com` niet automatisch doorgestuurd. Je kunt dit later instellen via Resend Inbound Email of een forwarding service.
 
 **Voor development/testing:**
 - Je kunt ook de Resend test domain gebruiken: `onboarding@resend.dev`
