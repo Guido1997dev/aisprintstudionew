@@ -487,63 +487,71 @@ export default function Home() {
         </div>
       </section>
 
-      {/* What We Build Section - Projects */}
-      <section className="border-y bg-muted/50 py-12">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto max-w-4xl">
-            <div className="text-center mb-12">
-              <Badge className="mb-4">De Methodologie</Badge>
-              <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
-                De Happy Sprint Machine®
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                Snelle resultaten, tevreden teams, en continue verbetering
-              </p>
-            </div>
+      {/* Happy Sprint Machine Section */}
+      <section className="container mx-auto px-4 py-12 md:py-16">
+        <div className="mx-auto max-w-4xl">
+          <div className="text-center mb-12">
+            <Badge className="mb-4">De Methodologie</Badge>
+            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
+              De Happy Sprint Machine®
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6">
+              De bewezen methode voor 100% voorspelbare software-projecten. Gebaseerd op korte sprints, 
+              gedegen voorbereiding en uitstekend gedocumenteerde communicatie.
+            </p>
+            <a 
+              href="https://dehappysprintmachine.nl/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center text-primary hover:underline font-medium"
+            >
+              Lees meer over de methodologie
+              <ExternalLink className="ml-2 h-4 w-4" />
+            </a>
+          </div>
 
-            <div className="grid gap-6 md:grid-cols-3">
-              <Card className="text-center">
-                <CardHeader>
-                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-                    <Target className="h-8 w-8 text-primary" />
-                  </div>
-                  <CardTitle>Sprint Planning</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">
-                    We starten met een duidelijk doel en concrete deliverables voor de sprint.
-                  </p>
-                </CardContent>
-              </Card>
+          <div className="grid gap-6 md:grid-cols-3">
+            <Card className="text-center border-2 hover:border-primary/50 hover:shadow-lg transition-all">
+              <CardHeader>
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                  <Target className="h-8 w-8 text-primary" />
+                </div>
+                <CardTitle>Sprint Planning</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  We starten met een duidelijk doel en concrete deliverables voor de sprint.
+                </p>
+              </CardContent>
+            </Card>
 
-              <Card className="text-center">
-                <CardHeader>
-                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-                    <Zap className="h-8 w-8 text-primary" />
-                  </div>
-                  <CardTitle>Snel Bouwen</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">
-                    In korte iteraties bouwen we prototypes en working solutions.
-                  </p>
-                </CardContent>
-              </Card>
+            <Card className="text-center border-2 hover:border-primary/50 hover:shadow-lg transition-all">
+              <CardHeader>
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                  <Zap className="h-8 w-8 text-primary" />
+                </div>
+                <CardTitle>Snel Bouwen</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  In korte iteraties bouwen we prototypes en working solutions.
+                </p>
+              </CardContent>
+            </Card>
 
-              <Card className="text-center">
-                <CardHeader>
-                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-                    <Sparkles className="h-8 w-8 text-primary" />
-                  </div>
-                  <CardTitle>Happy Results</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">
-                    Direct waarde, tevreden stakeholders, en concrete business impact.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
+            <Card className="text-center border-2 hover:border-primary/50 hover:shadow-lg transition-all">
+              <CardHeader>
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                  <Sparkles className="h-8 w-8 text-primary" />
+                </div>
+                <CardTitle>Happy Results</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  Direct waarde, tevreden stakeholders, en concrete business impact.
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
@@ -627,75 +635,6 @@ export default function Home() {
       <section className="border-y bg-muted/50 py-12">
         <div className="container mx-auto px-4">
           <TestimonialsCarousel />
-        </div>
-      </section>
-
-      {/* Happy Sprint Machine Section */}
-      <section className="container mx-auto px-4 py-12 md:py-16">
-        <div className="mx-auto max-w-4xl">
-          <div className="text-center mb-12">
-            <Badge className="mb-4">De Methodologie</Badge>
-            <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
-              De Happy Sprint Machine®
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6">
-              De bewezen methode voor 100% voorspelbare software-projecten. Gebaseerd op korte sprints, 
-              gedegen voorbereiding en uitstekend gedocumenteerde communicatie.
-            </p>
-            <a 
-              href="https://dehappysprintmachine.nl/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center text-primary hover:underline font-medium"
-            >
-              Lees meer over de methodologie
-              <ExternalLink className="ml-2 h-4 w-4" />
-            </a>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-3">
-            <Card className="text-center border-2 hover:border-primary/50 hover:shadow-lg transition-all">
-              <CardHeader>
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-                  <Target className="h-8 w-8 text-primary" />
-                </div>
-                <CardTitle>Sprint Planning</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">
-                  We starten met een duidelijk doel en concrete deliverables voor de sprint.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center border-2 hover:border-primary/50 hover:shadow-lg transition-all">
-              <CardHeader>
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-                  <Zap className="h-8 w-8 text-primary" />
-                </div>
-                <CardTitle>Snel Bouwen</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">
-                  In korte iteraties bouwen we prototypes en working solutions.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center border-2 hover:border-primary/50 hover:shadow-lg transition-all">
-              <CardHeader>
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-                  <Sparkles className="h-8 w-8 text-primary" />
-                </div>
-                <CardTitle>Happy Results</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">
-                  Direct waarde, tevreden stakeholders, en concrete business impact.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
         </div>
       </section>
 
@@ -834,7 +773,6 @@ export default function Home() {
               <h3 className="mb-4 text-sm font-semibold">Product</h3>
               <ul className="space-y-2 text-sm">
                 <li><Link href="/login" className="text-muted-foreground hover:text-foreground">Dashboard</Link></li>
-                <li><Link href="/about" className="text-muted-foreground hover:text-foreground">Over Ons</Link></li>
                 <li><Link href="#pricing" className="text-muted-foreground hover:text-foreground">Pricing</Link></li>
               </ul>
             </div>
@@ -844,7 +782,6 @@ export default function Home() {
               <ul className="space-y-2 text-sm">
                 <li><a href="https://docs.n8n.io" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">n8n Documentatie</a></li>
                 <li><Link href="/login" className="text-muted-foreground hover:text-foreground">Happy Sprint Machine</Link></li>
-                <li><Link href="/about" className="text-muted-foreground hover:text-foreground">Ons Team</Link></li>
               </ul>
             </div>
             
