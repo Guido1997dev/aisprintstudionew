@@ -49,6 +49,7 @@ export default function Home() {
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [showFloatingButton, setShowFloatingButton] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
@@ -68,6 +69,18 @@ export default function Home() {
   // Set mounted state after hydration
   useEffect(() => {
     setIsMounted(true);
+  }, []);
+
+  // Detect screen size for projects display
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // lg breakpoint
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    
+    return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
   // Auto-scroll to bottom when messages change
@@ -549,7 +562,7 @@ export default function Home() {
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {useCases.slice(0, showAllProjects ? useCases.length : 2).map((useCase, index) => {
+            {useCases.slice(0, showAllProjects ? useCases.length : (isLargeScreen ? 3 : 2)).map((useCase, index) => {
               const Icon = useCase.icon;
               return (
                 <Card 
