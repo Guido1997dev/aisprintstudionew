@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
 import { chunkText, isValidFileType, getMimeTypeFromExtension } from '@/lib/document-processing';
 import { generateEmbeddingsBatch } from '@/lib/embeddings';
-import pdfParse from 'pdf-parse';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const pdfParse = require('pdf-parse');
 
 export async function POST(request: NextRequest) {
   try {
