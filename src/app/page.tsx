@@ -464,7 +464,7 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section ref={statsRef} className="container mx-auto px-4 py-8 border-b">
+      <section ref={statsRef} className="container mx-auto px-4 py-8 border-b border-border/50">
         <div className={`grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto text-center transition-all duration-700 ${
           showStats ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
         }`}>
@@ -488,7 +488,7 @@ export default function Home() {
       </section>
 
       {/* Happy Sprint Machine Section */}
-      <section className="container mx-auto px-4 py-12 md:py-16">
+      <section className="container mx-auto px-4 py-12 md:py-16 border-b border-border/50">
         <div className="mx-auto max-w-4xl">
           <div className="text-center mb-12">
             <Badge className="mb-4">De Methodologie</Badge>
@@ -556,7 +556,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="projects" className="container mx-auto px-4 py-12 md:py-16">
+      {/* Wat we voor je bouwen Section */}
+      <section id="projects" className="container mx-auto px-4 py-12 md:py-16 border-b border-border/50">
         <div className="mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <Badge className="mb-4">Concrete Oplossingen</Badge>
@@ -575,11 +576,7 @@ export default function Home() {
               return (
                 <Card 
                   key={index} 
-                  className={`hover:shadow-lg hover:border-primary/50 transition-all group ${
-                    index % 2 === 0 
-                      ? 'bg-gray-100 dark:bg-gray-900' 
-                      : 'bg-white dark:bg-gray-800'
-                  }`}
+                  className="hover:shadow-lg hover:border-primary/50 transition-all group"
                 >
                   <CardHeader>
                     <div className="flex items-start justify-between mb-4">
@@ -636,14 +633,14 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="border-y bg-muted/50 py-12">
+      <section className="py-12 border-b border-border/50">
         <div className="container mx-auto px-4">
           <TestimonialsCarousel />
         </div>
       </section>
 
       {/* Why AI Sprint Studio Section */}
-      <section className="border-y bg-muted/50 py-12 md:py-16">
+      <section className="py-12 md:py-16 border-b border-border/50">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-3xl">
             <div className="text-center mb-12">
@@ -672,7 +669,7 @@ export default function Home() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="container mx-auto px-4 py-12 md:py-16">
+      <section id="pricing" className="container mx-auto px-4 py-12 md:py-16 border-b border-border/50">
         <div className="mx-auto max-w-4xl text-center mb-16">
           <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
             Start je AI Sprint
@@ -689,9 +686,7 @@ export default function Home() {
               className={`flex flex-col transition-all hover:shadow-xl hover:-translate-y-2 animate-fade-in-up ${
                 plan.highlighted
                   ? 'border-primary shadow-lg shadow-primary/20 scale-105 animate-glow'
-                  : index % 2 === 0 
-                    ? 'bg-gray-100 dark:bg-gray-900' 
-                    : 'bg-white dark:bg-gray-800'
+                  : ''
               }`}
               style={{ animationDelay: `${index * 150}ms` }}
             >
@@ -731,7 +726,7 @@ export default function Home() {
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="container mx-auto px-4 py-12 md:py-16">
+      <section id="faq" className="container mx-auto px-4 py-12 md:py-16 border-b border-border/50">
         <div className="mx-auto max-w-3xl">
           <div className="text-center mb-16">
             <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
