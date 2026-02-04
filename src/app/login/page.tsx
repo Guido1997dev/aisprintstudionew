@@ -1,8 +1,8 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { createClient } from '@/lib/supabase-browser';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -14,23 +14,77 @@ import { Sparkles, Zap, Lock, Mail, Chrome } from 'lucide-react';
 import Link from 'next/link';
 
 export default function LoginPage() {
+  const [supabase] = useState(() => createClient());
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
+  const [isCheckingSession, setIsCheckingSession] = useState(true);
+
+  // Check if user is already logged in
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        router.push('/dashboard');
+      } else {
+        setIsCheckingSession(false);
+      }
+    };
+    checkSession();
+  }, [supabase, router]);
 
   const handleCredentialsSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setIsLoading(true);
-    const result = await signIn('credentials', { email, password, redirect: false });
-    if (result?.ok) router.push('/dashboard');
-    else setError('Ongeldige inloggegevens.');
-    setIsLoading(false);
+
+    try {
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (signInError) {
+        setError(signInError.message === 'Invalid login credentials'
+          ? 'Ongeldige inloggegevens.'
+          : signInError.message);
+        return;
+      }
+
+      if (data.session) {
+        // Use window.location for full page reload to ensure session is recognized
+        window.location.href = '/dashboard';
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      setError(err instanceof Error ? err.message : 'Ongeldige inloggegevens.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const handleGoogleSignIn = () => signIn('google', { redirectTo: '/dashboard' });
+  const handleGoogleSignIn = async () => {
+    setIsLoading(true);
+    try {
+      const { error: oauthError } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/dashboard`,
+        },
+      });
+
+      if (oauthError) {
+        setError(oauthError.message);
+        setIsLoading(false);
+      }
+    } catch (err) {
+      console.error('Google sign in error:', err);
+      setError(err instanceof Error ? err.message : 'Er is een fout opgetreden.');
+      setIsLoading(false);
+    }
+  };
 
   const demoAccounts = [
     { email: 'admin@aisprintstudio.nl', password: 'admin123', label: 'Admin' },
@@ -38,6 +92,15 @@ export default function LoginPage() {
     { email: 'klant1@bedrijf.nl', password: 'demo123', label: 'Demo 1' },
     { email: 'klant2@company.com', password: 'demo123', label: 'Demo 2' },
   ];
+
+  // Show loading while checking session
+  if (isCheckingSession) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-muted/20 p-4">
