@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { createClient } from '@/lib/supabase-browser';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,15 +16,29 @@ import Link from 'next/link';
 export default function LoginPage() {
   const [supabase] = useState(() => createClient());
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isCheckingSession, setIsCheckingSession] = useState(true);
 
-  // Check if user is already logged in
+  // Check for auth code in URL and exchange it, or check existing session
   useEffect(() => {
-    const checkSession = async () => {
+    const handleAuth = async () => {
+      const code = searchParams.get('code');
+
+      // If there's a code parameter, exchange it for a session
+      if (code) {
+        const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
+        if (!exchangeError) {
+          window.location.href = '/dashboard';
+          return;
+        }
+        console.error('Code exchange error:', exchangeError);
+      }
+
+      // Check if user is already logged in
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
         router.push('/dashboard');
@@ -32,8 +46,8 @@ export default function LoginPage() {
         setIsCheckingSession(false);
       }
     };
-    checkSession();
-  }, [supabase, router]);
+    handleAuth();
+  }, [supabase, router, searchParams]);
 
   const handleCredentialsSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,7 +85,7 @@ export default function LoginPage() {
       const { error: oauthError } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/dashboard`,
+          redirectTo: `${window.location.origin}/auth/callback`,
         },
       });
 
