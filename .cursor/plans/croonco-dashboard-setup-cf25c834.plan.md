@@ -1,4 +1,51 @@
-<!-- cf25c834-ae8e-4baa-bbe5-f9d9a8973a0e 8fd51163-6f62-4675-a696-9d866a5751fc -->
+---
+name: Multi-Tenant SaaS Platform - Architecture Plan
+overview: ""
+todos:
+  - id: 91cb2db3-aca0-4ee0-af4d-033624cd4e0d
+    content: Set up Supabase project (EU-hosted) with multi-tenant schema and RLS policies
+    status: pending
+  - id: a635ed62-76ee-4096-91c3-96e6ff45c372
+    content: Build tenant-context.tsx extending auth-context with company_id and subscription data
+    status: pending
+  - id: d5178ebf-71dc-4787-9740-c2a4c199183e
+    content: Create subscriptions.ts with feature flags and tier definitions
+    status: pending
+  - id: 9710c579-934d-499d-9af7-58275cb86d0a
+    content: Build chat-interface.tsx component with gpt-4o-mini for free tier
+    status: pending
+  - id: 4007d57f-1db5-4069-8eed-7fb7fe3899fe
+    content: Create n8n-credentials-form.tsx for safe credential management
+    status: pending
+  - id: 94f4f70e-1f30-46a8-90a2-0ea81a1ea687
+    content: Implement feature-gate.tsx and useFeatures() hook for paid features
+    status: pending
+  - id: 90236081-fdd1-4e7c-8337-ae10837c8e14
+    content: Build paid-dashboard.tsx with insights and triggering (gated by subscription)
+    status: pending
+  - id: bd86be67-2943-4387-832c-b685a68362f6
+    content: Integrate Stripe for payments with checkout flow and webhooks
+    status: pending
+  - id: ee018136-52b7-4173-bc23-d36a53ca73b2
+    content: Create signup and onboarding flow with trial period option
+    status: pending
+  - id: 69c49454-e8d5-42bc-bf19-85d63a38f518
+    content: Set up Supabase Realtime for paid tier execution updates
+    status: pending
+  - id: a2dabb41-43e6-4f8f-8e88-82ada462e17d
+    content: Implement Row-Level Security ensuring complete data isolation per company
+    status: pending
+  - id: fe6fd46e-0ca4-4300-a5e6-f1a302942720
+    content: Add backend verification of company_id on all API endpoints
+    status: pending
+  - id: 277827e2-483e-4ead-a4bd-77d4cc894d82
+    content: Build usage tracking and analytics per company
+    status: pending
+  - id: bf6549a7-e341-4b4b-88f5-d771fcb3da00
+    content: Create admin dashboard for monitoring all companies and billing
+    status: pending
+---
+
 # Multi-Tenant SaaS Platform - Architecture Plan
 
 ## 1. Database & Data Layer (Supabase - Europe-based)
@@ -384,20 +431,3 @@ Shows:
 - Usage analytics
 - Billing overview
 - Support tickets
-
-### To-dos
-
-- [ ] Set up Supabase project (EU-hosted) with multi-tenant schema and RLS policies
-- [ ] Build tenant-context.tsx extending auth-context with company_id and subscription data
-- [ ] Create subscriptions.ts with feature flags and tier definitions
-- [ ] Build chat-interface.tsx component with gpt-4o-mini for free tier
-- [ ] Create n8n-credentials-form.tsx for safe credential management
-- [ ] Implement feature-gate.tsx and useFeatures() hook for paid features
-- [ ] Build paid-dashboard.tsx with insights and triggering (gated by subscription)
-- [ ] Integrate Stripe for payments with checkout flow and webhooks
-- [ ] Create signup and onboarding flow with trial period option
-- [ ] Set up Supabase Realtime for paid tier execution updates
-- [ ] Implement Row-Level Security ensuring complete data isolation per company
-- [ ] Add backend verification of company_id on all API endpoints
-- [ ] Build usage tracking and analytics per company
-- [ ] Create admin dashboard for monitoring all companies and billing

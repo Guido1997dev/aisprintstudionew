@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase-browser';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,38 +16,24 @@ import Link from 'next/link';
 function LoginContent() {
   const [supabase] = useState(() => createClient());
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isCheckingSession, setIsCheckingSession] = useState(true);
 
-  // Check for auth code in URL and exchange it, or check existing session
+  // Check if user is already logged in
   useEffect(() => {
-    const handleAuth = async () => {
-      const code = searchParams.get('code');
-
-      // If there's a code parameter, exchange it for a session
-      if (code) {
-        const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
-        if (!exchangeError) {
-          window.location.href = '/dashboard';
-          return;
-        }
-        console.error('Code exchange error:', exchangeError);
-      }
-
-      // Check if user is already logged in
+    const checkSession = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
-        router.push('/dashboard');
+        window.location.href = '/dashboard';
       } else {
         setIsCheckingSession(false);
       }
     };
-    handleAuth();
-  }, [supabase, router, searchParams]);
+    checkSession();
+  }, [supabase]);
 
   const handleCredentialsSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -241,13 +227,5 @@ function LoginContent() {
 }
 
 export default function LoginPage() {
-  return (
-    <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary" />
-      </div>
-    }>
-      <LoginContent />
-    </Suspense>
-  );
+  return <LoginContent />;
 }

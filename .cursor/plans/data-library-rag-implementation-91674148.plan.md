@@ -1,4 +1,45 @@
-<!-- 91674148-def4-44e3-aa83-baacd5a07775 306366b0-42f2-4526-b64e-417829991429 -->
+---
+name: Data Library RAG Implementation Plan
+overview: ""
+todos:
+  - id: 5bf1cc6b-dbec-4272-a179-5a434db4d965
+    content: "Database schema aanmaken in Supabase: projects, documents, document_chunks tabellen met pgvector"
+    status: pending
+  - id: 9bb5659e-797e-484f-aa38-1376616677e5
+    content: Supabase Storage bucket configureren voor document opslag
+    status: pending
+  - id: 3fdd4018-cd80-49fc-bc87-ef256d68ade5
+    content: Data Library pagina maken met project overview en CRUD functionaliteit
+    status: pending
+  - id: f34d282b-e181-4b92-987d-17fe2a8f2c18
+    content: Project detail pagina maken met document list en upload functionaliteit
+    status: pending
+  - id: 841be6e4-1749-46a3-9c6a-8381633dd210
+    content: Document upload API maken met PDF parsing en tekst extractie
+    status: pending
+  - id: b220a1cf-3e29-4688-99ea-689f9de42ab7
+    content: OpenAI embedding service implementeren voor chunk embeddings
+    status: pending
+  - id: 3b369a36-43a3-4262-9e58-acff9b802347
+    content: Document chunking logic implementeren met overlap en metadata
+    status: pending
+  - id: 41453753-1259-493d-a320-46447dfcf855
+    content: "Volledige document processing pipeline: upload → parse → chunk → embed → store"
+    status: pending
+  - id: 61f80e09-a0e4-43ed-ab33-387fd7b0b6e7
+    content: RAG search API maken met vector similarity search in Supabase
+    status: pending
+  - id: d8951553-4e1f-4da5-b9cc-29b72df2837b
+    content: "RAG integratie in chat pagina: project selector en context injection"
+    status: pending
+  - id: f63b9e73-8e9e-48a2-b158-7a934fa299f8
+    content: Chat API updaten om RAG context mee te sturen naar webhook
+    status: pending
+  - id: a4005287-df3a-4910-bf0a-64e69cb4ce7b
+    content: Helper functions maken voor project en document management
+    status: pending
+---
+
 # Data Library RAG Implementation Plan
 
 ## 1. Database Schema (Supabase)
@@ -242,18 +283,3 @@
 
 - `pdf-parse` of `pdfjs-dist` voor PDF parsing
 - `openai` package voor embeddings (als nog niet aanwezig)
-
-### To-dos
-
-- [ ] Database schema aanmaken in Supabase: projects, documents, document_chunks tabellen met pgvector
-- [ ] Supabase Storage bucket configureren voor document opslag
-- [ ] Data Library pagina maken met project overview en CRUD functionaliteit
-- [ ] Project detail pagina maken met document list en upload functionaliteit
-- [ ] Document upload API maken met PDF parsing en tekst extractie
-- [ ] OpenAI embedding service implementeren voor chunk embeddings
-- [ ] Document chunking logic implementeren met overlap en metadata
-- [ ] Volledige document processing pipeline: upload → parse → chunk → embed → store
-- [ ] RAG search API maken met vector similarity search in Supabase
-- [ ] RAG integratie in chat pagina: project selector en context injection
-- [ ] Chat API updaten om RAG context mee te sturen naar webhook
-- [ ] Helper functions maken voor project en document management
